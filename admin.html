@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>لوحة إدارة زاد المسلم</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body{font-family:Cairo,Tahoma,sans-serif;max-width:1100px;margin:auto;padding:24px;background:#0b131e;color:#edf6f3}.panel{background:#131f30;border:1px solid #d4af3738;border-radius:18px;padding:20px;margin-bottom:16px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}.metric{padding:16px;border-radius:14px;background:#0d6b50}.muted{color:#a9bab6;font-size:13px}.btn{border:0;border-radius:10px;padding:10px 14px;background:#d4af37;color:#102019;font-weight:700;cursor:pointer}.btn.secondary{background:#243445;color:#edf6f3}.row{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid #ffffff15}input,textarea,select{width:100%;padding:10px;border-radius:10px;border:1px solid #ffffff20;background:#0b131e;color:#fff;margin:6px 0 12px}h1,h2{font-family:Georgia,serif;color:#f3e5ab}
+  </style>
+</head>
+<body>
+  <header class="panel"><h1>لوحة إدارة المحتوى</h1><p class="muted">نسخة محلية تجريبية — البيانات تحفظ في المتصفح فقط. لا تستخدم للإنتاج قبل إضافة خادم وصلاحيات حقيقية.</p><a class="btn secondary" href="index.html">العودة للتطبيق</a></header>
+  <section class="grid">
+    <div class="metric"><b id="surahCount">0</b><div>السور</div></div>
+    <div class="metric"><b id="thikrCount">0</b><div>الأذكار</div></div>
+    <div class="metric"><b id="hadithCount">0</b><div>الأحاديث</div></div>
+    <div class="metric"><b id="reviewCount">0</b><div>بانتظار المراجعة</div></div>
+  </section>
+  <section class="panel"><h2>بحث المحتوى</h2><input id="search" placeholder="ابحث في السور والأذكار والأحاديث"><div id="results"></div></section>
+  <section class="panel"><h2>إضافة مسودة ذكر</h2><label>النص</label><textarea id="draftText" rows="3" placeholder="لا تنشر محتوى شرعيًا قبل المراجعة"></textarea><label>المصدر</label><input id="draftSource" placeholder="اسم الكتاب أو الجهة"><button class="btn" id="saveDraft">حفظ كمسودة</button><p id="message" class="muted"></p></section>
+  <section class="panel"><h2>المسودات المحلية</h2><div id="drafts"></div></section>
+  <script src="admin.js"></script>
+</body>
+</html>

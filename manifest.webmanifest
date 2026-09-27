@@ -1,1 +1,13 @@
-{"name":"زاد المسلم","short_name":"زاد المسلم","start_url":"./","display":"standalone","background_color":"#f4f8f5","theme_color":"#0d5c48","lang":"ar","dir":"rtl","icons":[]}
+{
+  "name": "زاد المسلم",
+  "short_name": "زاد المسلم",
+  "description": "منصة إسلامية رقمية للقرآن والأذكار والحديث والعبادات",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0b131e",
+  "theme_color": "#0d6b50",
+  "orientation": "portrait-primary",
+  "icons": []
+}

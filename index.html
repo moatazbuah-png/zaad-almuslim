@@ -4,13 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>زاد المسلم ﷺ - الموسوعة والمواقيت الفاخرة</title>
-    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;600;700;800;900&family=Reem+Kufi:wght@500;600;700&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
-    
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -42,7 +40,6 @@
             }
         }
     </script>
-
     <style>
         body {
             font-family: 'Tajawal', sans-serif;
@@ -57,16 +54,18 @@
         .gold-gradient-text { background: linear-gradient(135deg, #D4AF37 0%, #FFF3A7 50%, #AA771C 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .hero-emerald-card { background: linear-gradient(135deg, #0d6b50 0%, #064e3b 60%, #032e23 100%); box-shadow: 0 20px 30px -10px rgba(13, 107, 80, 0.4); }
         .glass-card { background: rgba(19, 31, 48, 0.75); backdrop-filter: blur(12px); border: 1px solid rgba(212, 175, 55, 0.15); }
-        .light .glass-card { background: rgba(255, 255, 255, 0.9); border: 1px solid rgba(13, 107, 80, 0.15); }
+        .light .glass-card { background: rgba(255,255,255,0.9); border: 1px solid rgba(13, 107, 80, 0.15); }
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #0B131E; }
         ::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 4px; }
         @keyframes pulseRing {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4); }
-            70% { transform: scale(1); box-shadow: 0 0 0 20px rgba(212, 175, 55, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(212,175,55,0.4); }
+            70% { transform: scale(1); box-shadow: 0 0 0 20px rgba(212,175,55,0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(212,175,55,0); }
         }
         .pulse-btn { animation: pulseRing 3s infinite; }
+        .tab-view { display: block; }
+        .tab-view.hidden { display: none; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-brand-gold selection:text-brand-night">
@@ -108,7 +107,6 @@
             <div class="absolute -left-10 -bottom-10 opacity-10 text-brand-gold text-9xl pointer-events-none">
                 <i class="fa-solid fa-mosque"></i>
             </div>
-
             <div class="flex items-center justify-between mb-4 border-b border-white/10 pb-3">
                 <span class="quran-font text-xl text-brand-gold-light">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</span>
                 <span class="text-xs bg-white/10 px-3 py-1 rounded-full border border-white/20 text-brand-gold-light flex items-center gap-1">
@@ -116,7 +114,6 @@
                     القبلة: <span id="qibla-degree">136° SE</span>
                 </span>
             </div>
-
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
                 <div>
                     <p class="text-xs text-brand-gold-light font-medium uppercase tracking-wider mb-1">الصلاة القادمة</p>
@@ -129,7 +126,6 @@
                         متبقي على الأذان: <strong id="prayer-countdown" class="text-white dir-ltr font-mono text-sm">01:42:15</strong>
                     </p>
                 </div>
-
                 <div class="grid grid-cols-5 gap-1.5 text-center bg-black/20 p-2.5 rounded-2xl border border-white/10">
                     <div class="p-1.5 rounded-xl bg-white/5 border border-white/5"><p class="text-[10px] text-gray-300">الفجر</p><p class="text-xs font-bold text-brand-gold mt-0.5">04:22</p></div>
                     <div class="p-1.5 rounded-xl bg-white/5 border border-white/5"><p class="text-[10px] text-gray-300">الظهر</p><p class="text-xs font-bold text-brand-gold mt-0.5">11:58</p></div>
@@ -141,29 +137,29 @@
         </section>
 
         <section class="grid grid-cols-3 sm:grid-cols-6 gap-3">
+            <button onclick="switchTab('dashboard')" class="glass-card p-3.5 rounded-2xl flex flex-col items-center justify-center gap-2 hover:border-brand-gold transition-all group">
+                <div class="w-11 h-11 rounded-xl bg-brand-emerald/20 text-brand-gold flex items-center justify-center text-xl group-hover:scale-110 transition-transform"><i class="fa-solid fa-house"></i></div>
+                <span class="text-xs font-bold text-gray-200">الرئيسية</span>
+            </button>
             <button onclick="switchTab('quran')" class="glass-card p-3.5 rounded-2xl flex flex-col items-center justify-center gap-2 hover:border-brand-gold transition-all group">
                 <div class="w-11 h-11 rounded-xl bg-brand-emerald/20 text-brand-gold flex items-center justify-center text-xl group-hover:scale-110 transition-transform"><i class="fa-solid fa-book-quran"></i></div>
                 <span class="text-xs font-bold text-gray-200">القرآن الكريم</span>
             </button>
             <button onclick="switchTab('athkar')" class="glass-card p-3.5 rounded-2xl flex flex-col items-center justify-center gap-2 hover:border-brand-gold transition-all group">
                 <div class="w-11 h-11 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xl group-hover:scale-110 transition-transform"><i class="fa-solid fa-hands-praying"></i></div>
-                <span class="text-xs font-bold text-gray-200">الأذكار والرقية</span>
-            </button>
-            <button onclick="switchTab('tasbeeh')" class="glass-card p-3.5 rounded-2xl flex flex-col items-center justify-center gap-2 hover:border-brand-gold transition-all group">
-                <div class="w-11 h-11 rounded-xl bg-teal-500/20 text-teal-400 flex items-center justify-center text-xl group-hover:scale-110 transition-transform"><i class="fa-solid fa-ring"></i></div>
-                <span class="text-xs font-bold text-gray-200">السبحة الذكية</span>
+                <span class="text-xs font-bold text-gray-200">الأذكار</span>
             </button>
             <button onclick="switchTab('hadith')" class="glass-card p-3.5 rounded-2xl flex flex-col items-center justify-center gap-2 hover:border-brand-gold transition-all group">
                 <div class="w-11 h-11 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center text-xl group-hover:scale-110 transition-transform"><i class="fa-solid fa-scroll"></i></div>
-                <span class="text-xs font-bold text-gray-200">رياض الصالحين</span>
+                <span class="text-xs font-bold text-gray-200">الحديث</span>
             </button>
             <button onclick="switchTab('tracker')" class="glass-card p-3.5 rounded-2xl flex flex-col items-center justify-center gap-2 hover:border-brand-gold transition-all group">
                 <div class="w-11 h-11 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-xl group-hover:scale-110 transition-transform"><i class="fa-solid fa-chart-line"></i></div>
-                <span class="text-xs font-bold text-gray-200">سجل العبادات</span>
+                <span class="text-xs font-bold text-gray-200">المتابعة</span>
             </button>
-            <button onclick="switchTab('card-gen')" class="glass-card p-3.5 rounded-2xl flex flex-col items-center justify-center gap-2 hover:border-brand-gold transition-all group">
-                <div class="w-11 h-11 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center text-xl group-hover:scale-110 transition-transform"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
-                <span class="text-xs font-bold text-gray-200">صانع البطاقات</span>
+            <button onclick="switchTab('tasbeeh')" class="glass-card p-3.5 rounded-2xl flex flex-col items-center justify-center gap-2 hover:border-brand-gold transition-all group">
+                <div class="w-11 h-11 rounded-xl bg-teal-500/20 text-teal-400 flex items-center justify-center text-xl group-hover:scale-110 transition-transform"><i class="fa-solid fa-ring"></i></div>
+                <span class="text-xs font-bold text-gray-200">السبحة</span>
             </button>
         </section>
 
@@ -200,6 +196,38 @@
                     <button onclick="copyText('حديث اليوم: بني الإسلام على خمس... متفق عليه')" class="text-brand-gold hover:underline font-bold">نسخ الحديث</button>
                 </div>
             </div>
+
+            <div class="glass-card rounded-3xl p-6 border-brand-gold/30 space-y-5">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-xs text-brand-gold font-bold">ملف المنظومة الإسلامية</p>
+                        <h3 class="font-bold text-lg text-brand-gold kufi-title">التكامل المؤسسي والمنظومة الموحدة</h3>
+                    </div>
+                    <span class="text-xs bg-brand-gold/10 border border-brand-gold/30 text-brand-gold rounded-full px-3 py-1">إصدار معرفي</span>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                    <div class="bg-slate-900/50 border border-slate-700 rounded-2xl p-4">
+                        <p class="text-xs text-gray-400">المنظمة</p>
+                        <p class="mt-2 font-bold text-white">منظمة التعاون الإسلامي</p>
+                        <p class="text-xs text-gray-300 mt-1">إطار دبلوماسي وسياسي جامع لدول الأعضاء.</p>
+                    </div>
+                    <div class="bg-slate-900/50 border border-slate-700 rounded-2xl p-4">
+                        <p class="text-xs text-gray-400">التمويل</p>
+                        <p class="mt-2 font-bold text-white">البنك الإسلامي للتنمية</p>
+                        <p class="text-xs text-gray-300 mt-1">ذراع تنموية ومالية لدعم المشاريع والاستثمار.</p>
+                    </div>
+                    <div class="bg-slate-900/50 border border-slate-700 rounded-2xl p-4">
+                        <p class="text-xs text-gray-400">المرجعية</p>
+                        <p class="mt-2 font-bold text-white">الأزهر الشريف</p>
+                        <p class="text-xs text-gray-300 mt-1">المرجعية الفقهية والعلمية في القضايا الشرعية.</p>
+                    </div>
+                    <div class="bg-slate-900/50 border border-slate-700 rounded-2xl p-4">
+                        <p class="text-xs text-gray-400">الحركة</p>
+                        <p class="mt-2 font-bold text-white">رابطة العالم الإسلامي</p>
+                        <p class="text-xs text-gray-300 mt-1">العمل الدعوي والرقعي والفكري والتطبيقي.</p>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div id="view-quran" class="tab-view hidden space-y-4">
@@ -211,13 +239,53 @@
         </div>
 
         <div id="view-athkar" class="tab-view hidden space-y-4">
+            <div class="flex gap-2 overflow-x-auto pb-2 border-b border-gray-800">
+                <button data-cat="morning" class="athkarTab px-4 py-2 rounded-xl bg-brand-emerald text-white text-xs font-bold whitespace-nowrap">أذكار الصباح</button>
+                <button data-cat="evening" class="athkarTab px-4 py-2 rounded-xl bg-slate-800 text-gray-300 text-xs font-bold whitespace-nowrap">أذكار المساء</button>
+                <button data-cat="sleep" class="athkarTab px-4 py-2 rounded-xl bg-slate-800 text-gray-300 text-xs font-bold whitespace-nowrap">أذكار النوم</button>
+                <button data-cat="prayer" class="athkarTab px-4 py-2 rounded-xl bg-slate-800 text-gray-300 text-xs font-bold whitespace-nowrap">بعد الصلاة</button>
+            </div>
             <div id="athkar-container" class="space-y-3"></div>
+        </div>
+
+        <div id="view-hadith" class="tab-view hidden space-y-4">
+            <div class="glass-card rounded-3xl p-6 border-brand-gold/30">
+                <div class="flex items-center justify-between mb-5">
+                    <h3 class="font-bold text-lg text-brand-gold kufi-title">حديث الرسول ﷺ</h3>
+                    <span class="text-xs text-gray-400">مجموعات حديثية</span>
+                </div>
+                <div id="hadith-list" class="space-y-3"></div>
+            </div>
+        </div>
+
+        <div id="view-tracker" class="tab-view hidden space-y-4">
+            <div class="glass-card rounded-3xl p-6 border-brand-gold/30 space-y-6">
+                <div class="flex items-center justify-between border-b border-gray-800 pb-4">
+                    <div>
+                        <h3 class="font-bold text-lg text-brand-gold kufi-title">متابع العبادات اليومي</h3>
+                        <p class="text-xs text-gray-400">سجل إنجازك في الصلوات والأذكار لليوم</p>
+                    </div>
+                    <div class="text-center">
+                        <span id="tracker-percentage" class="text-2xl font-black text-brand-gold">0%</span>
+                        <p class="text-[10px] text-gray-400">نسبة الإكمال</p>
+                    </div>
+                </div>
+                <div class="space-y-3" id="tracker-items-list"></div>
+            </div>
         </div>
 
         <div id="view-tasbeeh" class="tab-view hidden space-y-6">
             <div class="glass-card rounded-3xl p-8 text-center max-w-md mx-auto border-brand-gold/30">
                 <h3 class="font-bold text-xl text-brand-gold kufi-title mb-2">السبحة الإلكترونية الذكية</h3>
-                <p id="tasbeeh-phrase" class="quran-font text-2xl text-white my-4 font-bold">سُبْحَانَ اللَّهِ وَبِحَمْدِهِ</p>
+                <p id="tasbeeh-phrase" class="quran-font text-2xl text-white my-4 font-bold min-h-[3rem] flex items-center justify-center">سُبْحَانَ اللَّهِ وَبِحَمْدِهِ</p>
+                <div class="mb-6">
+                    <select id="tasbeeh-select" onchange="changeTasbeehPhrase(this.value)" class="w-full p-3 bg-slate-900 border border-brand-gold/30 rounded-xl text-xs text-brand-gold font-bold outline-none">
+                        <option value="سُبْحَانَ اللَّهِ وَبِحَمْدِهِ">سُبْحَانَ اللَّهِ وَبِحَمْدِهِ ، سُبْحَانَ اللَّهِ الْعَظِيمِ</option>
+                        <option value="أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ">أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ</option>
+                        <option value="لا إِلَهَ إِلا اللَّهُ وَحْدَهُ لا شَرِيكَ لَهُ">لا إِلَهَ إِلا اللَّهُ وَحْدَهُ لا شَرِيكَ لَهُ</option>
+                        <option value="اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ">اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ</option>
+                    </select>
+                </div>
                 <button onclick="incrementTasbeeh()" class="w-48 h-48 rounded-full gold-gradient-bg p-1 shadow-2xl mx-auto flex items-center justify-center pulse-btn active:scale-95 transition-transform">
                     <div class="w-full h-full bg-brand-emerald-dark rounded-full flex flex-col items-center justify-center text-white border-4 border-brand-gold/40">
                         <span id="tasbeeh-count" class="text-5xl font-extrabold kufi-title text-brand-gold">0</span>
@@ -225,8 +293,8 @@
                     </div>
                 </button>
                 <div class="flex items-center justify-center gap-4 mt-8">
-                    <button onclick="resetTasbeeh()" class="px-4 py-2 bg-slate-800 text-gray-300 rounded-xl text-xs font-bold"><i class="fa-solid fa-rotate-right text-brand-gold"></i> إعادة ضبط</button>
-                    <div class="text-xs text-gray-400">المجموع: <strong id="tasbeeh-total" class="text-brand-gold">0</strong></div>
+                    <button onclick="resetTasbeeh()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-gray-300 rounded-xl text-xs font-bold flex items-center gap-1.5 border border-slate-700"><i class="fa-solid fa-rotate-right text-brand-gold"></i> إعادة ضبط</button>
+                    <div class="text-xs text-gray-400">المجموع الكلي: <strong id="tasbeeh-total" class="text-brand-gold">0</strong></div>
                 </div>
             </div>
         </div>
@@ -234,20 +302,22 @@
 
     <nav class="fixed bottom-0 left-0 right-0 z-40 bg-brand-night/95 backdrop-blur-xl border-t border-brand-gold/20 px-2 py-2 shadow-2xl">
         <div class="max-w-md mx-auto flex items-center justify-around">
-            <button onclick="switchTab('dashboard')" id="nav-btn-dashboard" class="flex flex-col items-center gap-1 text-brand-gold font-bold text-[11px] p-2"><i class="fa-solid fa-house text-lg"></i><span>الرئيسية</span></button>
-            <button onclick="switchTab('quran')" id="nav-btn-quran" class="flex flex-col items-center gap-1 text-gray-400 font-medium text-[11px] p-2"><i class="fa-solid fa-book-quran text-lg"></i><span>المصحف</span></button>
-            <button onclick="switchTab('athkar')" id="nav-btn-athkar" class="flex flex-col items-center gap-1 text-gray-400 font-medium text-[11px] p-2"><i class="fa-solid fa-hands-praying text-lg"></i><span>الأذكار</span></button>
-            <button onclick="switchTab('tasbeeh')" id="nav-btn-tasbeeh" class="flex flex-col items-center gap-1 text-gray-400 font-medium text-[11px] p-2"><i class="fa-solid fa-ring text-lg"></i><span>السبحة</span></button>
+            <button onclick="switchTab('dashboard')" id="nav-btn-dashboard" class="flex flex-col items-center gap-1 text-brand-gold font-bold text-[11px] p-2 transition-all"><i class="fa-solid fa-house text-lg"></i><span>الرئيسية</span></button>
+            <button onclick="switchTab('quran')" id="nav-btn-quran" class="flex flex-col items-center gap-1 text-gray-400 font-medium text-[11px] p-2 transition-all"><i class="fa-solid fa-book-quran text-lg"></i><span>المصحف</span></button>
+            <button onclick="switchTab('athkar')" id="nav-btn-athkar" class="flex flex-col items-center gap-1 text-gray-400 font-medium text-[11px] p-2 transition-all"><i class="fa-solid fa-hands-praying text-lg"></i><span>الأذكار</span></button>
+            <button onclick="switchTab('tasbeeh')" id="nav-btn-tasbeeh" class="flex flex-col items-center gap-1 text-gray-400 font-medium text-[11px] p-2 transition-all"><i class="fa-solid fa-ring text-lg"></i><span>السبحة</span></button>
         </div>
     </nav>
 
     <div id="city-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
         <div class="glass-card w-full max-w-sm rounded-3xl p-6 border-brand-gold/40 text-center space-y-4">
-            <h3 class="font-bold text-lg text-brand-gold kufi-title">اختر مدينتك</h3>
-            <div class="space-y-2 max-h-60 overflow-y-auto">
-                <button onclick="selectCity('القاهرة', '136° SE')" class="w-full p-3 bg-slate-900/80 hover:bg-brand-emerald/40 text-white rounded-xl text-xs font-bold">مصر - القاهرة</button>
-                <button onclick="selectCity('مكة المكرمة', '0°')" class="w-full p-3 bg-slate-900/80 hover:bg-brand-emerald/40 text-white rounded-xl text-xs font-bold">السعودية - مكة</button>
-                <button onclick="selectCity('الرياض', '240° SW')" class="w-full p-3 bg-slate-900/80 hover:bg-brand-emerald/40 text-white rounded-xl text-xs font-bold">السعودية - الرياض</button>
+            <h3 class="font-bold text-lg text-brand-gold kufi-title">اختر مدينتك لمواقيت الصلاة</h3>
+            <div class="space-y-2 max-h-60 overflow-y-auto pr-1 text-right">
+                <button onclick="selectCity('القاهرة', '136° SE')" class="w-full p-3 bg-slate-900/80 hover:bg-brand-emerald/40 text-white rounded-xl text-xs font-bold border border-slate-700">مصر - القاهرة</button>
+                <button onclick="selectCity('مكة المكرمة', 'اتجاه القبلة المباشر')" class="w-full p-3 bg-slate-900/80 hover:bg-brand-emerald/40 text-white rounded-xl text-xs font-bold border border-slate-700">السعودية - مكة المكرمة</button>
+                <button onclick="selectCity('الرياض', '240° SW')" class="w-full p-3 bg-slate-900/80 hover:bg-brand-emerald/40 text-white rounded-xl text-xs font-bold border border-slate-700">السعودية - الرياض</button>
+                <button onclick="selectCity('القدس الشريف', '155° SE')" class="w-full p-3 bg-slate-900/80 hover:bg-brand-emerald/40 text-white rounded-xl text-xs font-bold border border-slate-700">فلسطين - القدس</button>
+                <button onclick="selectCity('دبي', '258° W')" class="w-full p-3 bg-slate-900/80 hover:bg-brand-emerald/40 text-white rounded-xl text-xs font-bold border border-slate-700">الإمارات - دبي</button>
             </div>
             <button onclick="toggleCityModal()" class="w-full py-2.5 bg-slate-800 text-gray-300 rounded-xl text-xs font-bold">إغلاق</button>
         </div>
@@ -255,13 +325,13 @@
 
     <div id="audio-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
         <div class="glass-card w-full max-w-sm rounded-3xl p-6 border-brand-gold/40 text-center space-y-4">
-            <h3 class="font-bold text-lg text-brand-gold kufi-title"><i class="fa-solid fa-headphones"></i> إذاعة القرآن</h3>
+            <h3 class="font-bold text-lg text-brand-gold kufi-title flex items-center justify-center gap-2"><i class="fa-solid fa-headphones"></i> إذاعة القرآن الكريم والتلاوات</h3>
             <div class="bg-slate-900 p-4 rounded-2xl border border-slate-800">
-                <p class="text-xs text-brand-gold font-bold">القارئ الحالي</p>
-                <p class="text-sm text-white font-bold">الشيخ محمد صديق المنشاوي</p>
-                <button onclick="toggleGlobalAudio()" id="audio-play-btn" class="w-14 h-14 rounded-full gold-gradient-bg text-brand-emerald-dark text-xl flex items-center justify-center shadow-lg mx-auto mt-4">
-                    <i class="fa-solid fa-play"></i>
-                </button>
+                <p class="text-xs text-brand-gold font-bold mb-1">القارئ الحالي</p>
+                <p class="text-sm text-white font-bold">الشيخ محمد صديق المنشاوي (ترتيل)</p>
+                <div class="mt-4 flex items-center justify-center gap-4">
+                    <button onclick="toggleGlobalAudio()" id="audio-play-btn" class="w-14 h-14 rounded-full gold-gradient-bg text-brand-emerald-dark text-xl flex items-center justify-center shadow-lg"><i class="fa-solid fa-play"></i></button>
+                </div>
             </div>
             <button onclick="toggleAudioModal()" class="w-full py-2.5 bg-slate-800 text-gray-300 rounded-xl text-xs font-bold">إغلاق</button>
         </div>
@@ -274,26 +344,72 @@
 
     <script>
         const sampleSurahs = [
-            { id: 1, name: 'الفاتحة', type: 'مكية', verses: 7 },
-            { id: 2, name: 'البقرة', type: 'مدنية', verses: 286 },
-            { id: 18, name: 'الكهف', type: 'مكية', verses: 110 },
-            { id: 36, name: 'يس', type: 'مكية', verses: 83 },
-            { id: 55, name: 'الرحمن', type: 'مدنية', verses: 78 },
-            { id: 112, name: 'الإخلاص', type: 'مكية', verses: 4 }
+            { id: 1, name: 'الفاتحة', type: 'مكية', verses: 7, juz: 1 },
+            { id: 2, name: 'البقرة', type: 'مدنية', verses: 286, juz: 1 },
+            { id: 3, name: 'آل عمران', type: 'مدنية', verses: 200, juz: 3 },
+            { id: 18, name: 'الكهف', type: 'مكية', verses: 110, juz: 15 },
+            { id: 36, name: 'يس', type: 'مكية', verses: 83, juz: 22 },
+            { id: 55, name: 'الرحمن', type: 'مدنية', verses: 78, juz: 27 },
+            { id: 67, name: 'الملك', type: 'مكية', verses: 30, juz: 29 },
+            { id: 112, name: 'الإخلاص', type: 'مكية', verses: 4, juz: 30 }
         ];
 
         const athkarData = {
             morning: [
-                { text: 'أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ', count: 1 },
-                { text: 'سُبْحَانَ اللَّهِ وَبِحَمْدِهِ', count: 3 }
+                { id: 'm1', text: 'أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ لاَ إِلَهَ إِلاَّ اللَّهُ وَحْدَهُ لاَ شَرِيكَ لَهُ', count: 1, max: 1 },
+                { id: 'm2', text: 'آيَةُ الْكُرْسِيِّ: {اللَّهُ لاَ إِلَهَ إِلاَّ هُوَ الْحَيُّ الْقَيُّومُ...}', count: 1, max: 1 },
+                { id: 'm3', text: 'سُبْحَانَ اللَّهِ وَبِحَمْدِهِ: عَدَدَ خَلْقِهِ، وَرِضَا نَفْسِهِ، وَزِنَةَ عَرْشِهِ، وَمِدَادَ كَلِمَاتِهِ', count: 3, max: 3 }
             ],
             evening: [
-                { text: 'أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ', count: 1 }
+                { id: 'e1', text: 'أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ وَالْحَمْدُ لِلَّهِ لاَ إِلَهَ إِلاَّ اللَّهُ وَحْدَهُ لاَ شَرِيكَ لَهُ', count: 1, max: 1 },
+                { id: 'e2', text: 'أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ', count: 3, max: 3 }
+            ],
+            sleep: [
+                { id: 's1', text: 'بِاسْمِكَ رَبِّي وَضَعْتُ جَنْبِي وَبِكَ أَرْفَعُهُ', count: 1, max: 1 }
+            ],
+            prayer: [
+                { id: 'p1', text: 'أَسْتَغْفِرُ اللَّهَ، اللَّهُمَّ أَنْتَ السَّلاَمُ وَمِنْكَ السَّلاَمُ', count: 1, max: 1 }
             ]
         };
 
+        const hadithData = [
+            { title: 'بني الإسلام على خمس', source: 'متفق عليه', text: '«بُنِيَ الإِسْلاَمُ عَلَى خَمْسٍ: شَهَادَةِ أَنْ لاَ إِلَهَ إِلاَّ اللَّهُ وَأَنَّ مُحَمَّدًا رَسُولُ اللَّهِ، وَإِقَامِ الصَّلاَةِ، وَإِيتَاءِ الزَّكَاةِ، وَحَجِّ الْبَيْتِ، وَصَوْمِ رَمَضَانَ»' },
+            { title: 'من حسن إسلام المرء', source: 'رواه مسلم', text: '«حُسْنُ الإِسْلاَمِ: تركه ما لا يعنيه»' },
+            { title: 'الرحمة', source: 'رواه البخاري', text: '«من لا يرحم الناس لا يرحمه الله»' }
+        ];
+
+        const trackerTasks = [
+            { id: 't1', title: 'صلاة الفجر في وقتها', done: false },
+            { id: 't2', title: 'أذكار الصباح كاملة', done: false },
+            { id: 't3', title: 'قراءة ورد من القرآن (صفحتين على الأقل)', done: false },
+            { id: 't4', title: 'صلاة الظهر والعصر', done: false },
+            { id: 't5', title: 'أذكار المساء', done: false },
+            { id: 't6', title: 'صلاة المغرب والعشاء', done: false },
+            { id: 't7', title: 'قيام الليل ولو بركعة الوتر', done: false }
+        ];
+
         let currentTasbeehCount = 0;
         let totalTasbeehCount = 0;
+
+        window.addEventListener('DOMContentLoaded', () => {
+            renderSurahs();
+            renderAthkar('morning');
+            renderHadith();
+            renderTracker();
+            startCountdownTimer();
+            initNavState();
+            const quranSearch = document.getElementById('quran-search');
+            if (quranSearch) {
+                quranSearch.addEventListener('input', filterSurahs);
+            }
+            document.querySelectorAll('.athkarTab').forEach(btn => {
+                btn.addEventListener('click', () => renderAthkar(btn.dataset.cat));
+            });
+        });
+
+        function initNavState() {
+            updateNavState('dashboard');
+        }
 
         function switchTab(tabId) {
             document.querySelectorAll('.tab-view').forEach(el => el.classList.add('hidden'));
@@ -303,17 +419,19 @@
         }
 
         function updateNavState(activeTab) {
-            const navKeys = ['dashboard', 'quran', 'athkar', 'tasbeeh'];
+            const navKeys = ['dashboard', 'quran', 'athkar', 'hadith', 'tracker', 'tasbeeh'];
             navKeys.forEach(key => {
                 const btn = document.getElementById(`nav-btn-${key}`);
                 if (!btn) return;
-                btn.className = `flex flex-col items-center gap-1 text-[11px] p-2 ${key === activeTab ? 'text-brand-gold font-bold' : 'text-gray-400 font-medium'}`;
+                btn.className = `flex flex-col items-center gap-1 text-[11px] p-2 transition-all ${key === activeTab ? 'text-brand-gold font-bold' : 'text-gray-400 font-medium'}`;
             });
         }
 
-        function renderSurahs() {
-            const html = sampleSurahs.map(s => `
-                <div class="glass-card p-3.5 rounded-2xl flex items-center justify-between hover:border-brand-gold/60 transition-all">
+        function renderSurahs(list = sampleSurahs) {
+            const container = document.getElementById('surah-grid');
+            if (!container) return;
+            container.innerHTML = list.map(s => `
+                <div class="glass-card p-3.5 rounded-2xl flex items-center justify-between hover:border-brand-gold/60 transition-all cursor-pointer">
                     <div class="flex items-center gap-3">
                         <div class="w-9 h-9 rounded-xl bg-brand-emerald/30 border border-brand-gold/30 flex items-center justify-center text-brand-gold font-bold text-xs">${s.id}</div>
                         <div>
@@ -321,18 +439,90 @@
                             <p class="text-[10px] text-gray-400">${s.type} · ${s.verses} آية</p>
                         </div>
                     </div>
+                    <span class="text-[10px] bg-slate-800 text-brand-gold-light px-2 py-0.5 rounded-md">الجزء ${s.juz}</span>
                 </div>
             `).join('');
-            document.getElementById('surah-grid').innerHTML = html;
         }
 
-        function renderAthkar() {
-            const html = Object.values(athkarData).flat().map(item => `
+        function filterSurahs() {
+            const query = document.getElementById('quran-search').value.trim();
+            const filtered = sampleSurahs.filter(s => s.name.includes(query));
+            renderSurahs(filtered);
+        }
+
+        function renderAthkar(cat = 'morning') {
+            document.querySelectorAll('.athkarTab').forEach(btn => {
+                const active = btn.dataset.cat === cat;
+                btn.className = `athkarTab px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap ${active ? 'bg-brand-emerald text-white' : 'bg-slate-800 text-gray-300'}`;
+            });
+
+            const container = document.getElementById('athkar-container');
+            if (!container) return;
+            const items = athkarData[cat] || [];
+            container.innerHTML = items.map(item => `
                 <div class="glass-card p-4 rounded-2xl border-brand-gold/20 space-y-3">
-                    <p class="quran-font text-lg text-brand-gold-light font-medium">${item.text}</p>
+                    <p class="quran-font text-lg text-brand-gold-light font-medium leading-relaxed">${item.text}</p>
+                    <div class="flex items-center justify-between pt-2 border-t border-gray-800">
+                        <span class="text-xs text-gray-400">التكرار المطلوب: ${item.max}</span>
+                        <button onclick="countThikr('${item.id}', ${item.max}, this)" class="px-4 py-1.5 bg-brand-emerald text-brand-gold-light text-xs font-bold rounded-xl flex items-center gap-1.5 border border-brand-gold/30">
+                            <i class="fa-solid fa-hand-pointer"></i> <span class="count-val">${item.count}</span> / ${item.max}
+                        </button>
+                    </div>
                 </div>
             `).join('');
-            document.getElementById('athkar-container').innerHTML = html;
+        }
+
+        function countThikr(id, max, btn) {
+            const valEl = btn.querySelector('.count-val');
+            let val = parseInt(valEl.innerText, 10);
+            if (val <= 0) return;
+            val -= 1;
+            valEl.innerText = val;
+            if (val === 0) {
+                btn.className = 'px-4 py-1.5 bg-gray-700 text-gray-400 text-xs font-bold rounded-xl flex items-center gap-1.5 cursor-not-allowed';
+                showToast('تم إكمال الذكر بنجاح');
+            }
+        }
+
+        function renderHadith() {
+            const list = document.getElementById('hadith-list');
+            if (!list) return;
+            list.innerHTML = hadithData.map(item => `
+                <div class="rounded-2xl border border-brand-gold/20 bg-slate-900/50 p-4 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs text-brand-gold font-bold">${item.title}</span>
+                        <span class="text-[10px] text-gray-400">${item.source}</span>
+                    </div>
+                    <p class="text-sm text-gray-100 leading-relaxed">${item.text}</p>
+                    <button onclick="copyText('${item.text}')" class="text-brand-gold text-xs font-bold hover:underline">نسخ الحديث</button>
+                </div>
+            `).join('');
+        }
+
+        function renderTracker() {
+            const container = document.getElementById('tracker-items-list');
+            if (!container) return;
+            container.innerHTML = trackerTasks.map((task, idx) => `
+                <div onclick="toggleTrackerTask(${idx})" class="p-3.5 bg-slate-900/80 rounded-2xl border ${task.done ? 'border-emerald-500/50 bg-emerald-950/20' : 'border-slate-800'} flex items-center justify-between cursor-pointer">
+                    <span class="text-xs font-semibold ${task.done ? 'line-through text-gray-400' : 'text-gray-200'}">${task.title}</span>
+                    <div class="w-6 h-6 rounded-lg ${task.done ? 'bg-emerald-500 text-slate-950' : 'bg-slate-800 border border-slate-700'} flex items-center justify-center text-xs">
+                        ${task.done ? '<i class="fa-solid fa-check"></i>' : ''}
+                    </div>
+                </div>
+            `).join('');
+            updateTrackerPercentage();
+        }
+
+        function toggleTrackerTask(idx) {
+            trackerTasks[idx].done = !trackerTasks[idx].done;
+            renderTracker();
+        }
+
+        function updateTrackerPercentage() {
+            const doneCount = trackerTasks.filter(task => task.done).length;
+            const pct = Math.round((doneCount / trackerTasks.length) * 100);
+            const el = document.getElementById('tracker-percentage');
+            if (el) el.innerText = `${pct}%`;
         }
 
         function incrementTasbeeh() {
@@ -347,19 +537,45 @@
             document.getElementById('tasbeeh-count').innerText = 0;
         }
 
+        function changeTasbeehPhrase(val) {
+            document.getElementById('tasbeeh-phrase').innerText = val;
+            resetTasbeeh();
+        }
+
+        function startCountdownTimer() {
+            let totalSeconds = 1 * 3600 + 42 * 60 + 15;
+            setInterval(() => {
+                if (totalSeconds > 0) {
+                    totalSeconds--;
+                    const hrs = Math.floor(totalSeconds / 3600).toString().padStart(2, '0');
+                    const mins = Math.floor((totalSeconds % 3600) / 60).toString().padStart(2, '0');
+                    const secs = (totalSeconds % 60).toString().padStart(2, '0');
+                    const el = document.getElementById('prayer-countdown');
+                    if (el) el.innerText = `${hrs}:${mins}:${secs}`;
+                }
+            }, 1000);
+        }
+
         function copyText(txt) {
             if (navigator.clipboard) {
-                navigator.clipboard.writeText(txt).then(() => showToast('تم النسخ للحافظة'));
+                navigator.clipboard.writeText(txt).then(() => showToast('تم النسخ للحافظة بنجاح'));
             } else {
-                showToast('تم النسخ للحافظة');
+                showToast('تم النسخ للحافظة بنجاح');
             }
         }
 
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            document.getElementById('toast-text').innerText = msg;
-            toast.classList.remove('opacity-0', 'pointer-events-none');
-            setTimeout(() => toast.classList.add('opacity-0', 'pointer-events-none'), 3000);
+        function generateCardFromText(txt, src) {
+            switchTab('dashboard');
+            showToast('سيتم إضافة صانع البطاقات قريباً');
+        }
+
+        function playAudioAyah() {
+            showToast('جاري تشغيل آية اليوم بصوت المنشاوي');
+        }
+
+        function openSearchModal() {
+            switchTab('quran');
+            document.getElementById('quran-search').focus();
         }
 
         function toggleCityModal() {
@@ -370,7 +586,7 @@
             document.getElementById('selected-city-label').innerText = name;
             document.getElementById('qibla-degree').innerText = qibla;
             toggleCityModal();
-            showToast(`تم تحديث المدينة: ${name}`);
+            showToast(`تم تحديث مواقيت الصلاة لـ ${name}`);
         }
 
         function toggleAudioModal() {
@@ -381,45 +597,20 @@
             const btn = document.getElementById('audio-play-btn');
             if (btn.innerHTML.includes('fa-play')) {
                 btn.innerHTML = '<i class="fa-solid fa-pause"></i>';
-                showToast('جاري التشغيل...');
+                showToast('جاري تشغيل تلاوة القرآن...');
             } else {
                 btn.innerHTML = '<i class="fa-solid fa-play"></i>';
             }
         }
 
-        function generateCardFromText(txt, src) {
-            switchTab('dashboard');
-            showToast('إضافة صانع البطاقات قادمة');
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-text').innerText = msg;
+            toast.classList.remove('opacity-0', 'pointer-events-none');
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'pointer-events-none');
+            }, 3000);
         }
-
-        function playAudioAyah() {
-            showToast('جاري تشغيل الآية...');
-        }
-
-        function openSearchModal() {
-            switchTab('quran');
-        }
-
-        window.addEventListener('DOMContentLoaded', () => {
-            renderSurahs();
-            renderAthkar();
-            updateNavState('dashboard');
-            document.getElementById('quran-search').addEventListener('input', (e) => {
-                const query = e.target.value.trim();
-                const filtered = sampleSurahs.filter(s => s.name.includes(query));
-                document.getElementById('surah-grid').innerHTML = filtered.map(s => `
-                    <div class="glass-card p-3.5 rounded-2xl flex items-center justify-between hover:border-brand-gold/60 transition-all">
-                        <div class="flex items-center gap-3">
-                            <div class="w-9 h-9 rounded-xl bg-brand-emerald/30 border border-brand-gold/30 flex items-center justify-center text-brand-gold font-bold text-xs">${s.id}</div>
-                            <div>
-                                <h4 class="font-bold text-sm text-white kufi-title">${s.name}</h4>
-                                <p class="text-[10px] text-gray-400">${s.type} · ${s.verses} آية</p>
-                            </div>
-                        </div>
-                    </div>
-                `).join('');
-            });
-        });
     </script>
 </body>
 </html>

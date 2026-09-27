@@ -228,6 +228,30 @@
                     </div>
                 </div>
             </div>
+
+            <div class="glass-card rounded-3xl p-6 border-brand-gold/30">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="font-bold text-lg text-brand-gold kufi-title">الإطار الاستراتيجي للمنظومة</h3>
+                    <span class="text-xs text-gray-400">خطة شاملة</span>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
+                    <div class="bg-slate-900/60 border border-slate-700 rounded-2xl p-4">
+                        <div class="text-brand-gold text-xl mb-2"><i class="fa-solid fa-book-open"></i></div>
+                        <p class="font-bold text-white">التعليم</p>
+                        <p class="text-xs text-gray-300 mt-2">بناء جيل يقرأ ويحلل ويؤصل العقيدة في الفكر.</p>
+                    </div>
+                    <div class="bg-slate-900/60 border border-slate-700 rounded-2xl p-4">
+                        <div class="text-brand-gold text-xl mb-2"><i class="fa-solid fa-users"></i></div>
+                        <p class="font-bold text-white">التوعية</p>
+                        <p class="text-xs text-gray-300 mt-2">توسيع الوعي المجتمعي عبر محتوى موثوق ومنظم.</p>
+                    </div>
+                    <div class="bg-slate-900/60 border border-slate-700 rounded-2xl p-4">
+                        <div class="text-brand-gold text-xl mb-2"><i class="fa-solid fa-mosque"></i></div>
+                        <p class="font-bold text-white">الاستدامة</p>
+                        <p class="text-xs text-gray-300 mt-2">ربط التطبيق بالبيئة الدينية والروتين اليومي.</p>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div id="view-quran" class="tab-view hidden space-y-4">
@@ -407,9 +431,7 @@
             });
         });
 
-        function initNavState() {
-            updateNavState('dashboard');
-        }
+        function initNavState() { updateNavState('dashboard'); }
 
         function switchTab(tabId) {
             document.querySelectorAll('.tab-view').forEach(el => el.classList.add('hidden'));

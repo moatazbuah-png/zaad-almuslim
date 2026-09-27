@@ -1,4 +1,26 @@
-const categories=['الكل','عبادات','أسرة وأطفال','فكر ومعرفة','دراسات استر��تيجية'];
-const sections=[{title:'القرآن الكريم',category:'عبادات',icon:'📖',text:'تدبر السور والآيات مع مصادر موثوقة.',pop:10,recent:4},{title:'الأذكار والأدعية',category:'عبادات',icon:'🤲',text:'أذكار يومية مرتبة للصباح والمساء.',pop:9,recent:7},{title:'تربية الأبناء',category:'أسرة وأطفال',icon:'👨‍👩‍👧',text:'محتوى تربوي مبسط للأسرة المسلمة.',pop:8,recent:8},{title:'السيرة النبوية',category:'فكر ومعرفة',icon:'🕋',text:'محطات من السيرة والدروس المستفادة.',pop:9,recent:5},{title:'المنظومة الإسلامية الموحدة',category:'دراسات استراتيجية',icon:'🌐',text:'تحليل المؤسسات والتكامل الاقتصادي وخارطة الطريق.',pop:10,recent:10},{title:'الاقتصاد والتمويل الإسلامي',category:'دراسات استراتيجية',icon:'📊',text:'معايير الحوكمة والتجارة البينية والتنمية.',pop:8,recent:9},{title:'قصص وعبر',category:'فكر ومعرفة',icon:'📚',text:'قصص نافعة بلغة سهلة لجميع الأعمار.',pop:7,recent:3},{title:'آداب المسلم',category:'عبادات',icon:'🌿',text:'قيم عملية لبناء شخصية متوازنة.',pop:8,recent:6}];
-const daily=[['إن مع العسر يسرا','فإن مع العسر يسرا، إن مع العسر يسرا.','سورة الشرح: 5–6'],['وقل رب زدني علما','وَقُلْ رَبِّ زِدْنِي عِلْمًا','سورة طه: 114'],['فاذكروني أذكركم','فَاذْكُرُونِي أَذْكُرْكُمْ وَاشْكُرُوا لِي','سورة البقرة: 152']];let page=1,category='الكل',favorites=Number(localStorage.getItem('favorites')||0);const perPage=6;
-const $=id=>document.getElementById(id);function renderTabs(){ $('categoryTabs').innerHTML=categories.map(c=>`<button class="${c===category?'active':''}" data-category="${c}">${c}</button>`).join('');document.querySelectorAll('[data-category]').forEach(b=>b.onclick=()=>{category=b.dataset.category;page=1;render()})}function render(){let q=$('searchInput').value.trim();let list=sections.filter(s=>(category==='الكل'||s.category===category)&&(!q||`${s.title} ${s.text}`.includes(q)));let sort=$('sortBy').value;list.sort((a,b)=>sort==='name'?a.title.localeCompare(b.title,'ar'):b[sort]-a[sort]);let pages=Math.max(1,Math.ceil(list.length/perPage));page=Math.min(page,pages);let visible=list.slice((page-1)*perPage,page*perPage);$('sectionsGrid').innerHTML=visible.map(s=>`<article class="section-card" data-title="${s.title}"><span class="section-icon">${s.icon}</span><h3>${s.title}</h3><p>${s.text}</p></article>`).join('')||'<p>لا توجد نتائج مطابقة.</p>';$('resultCount').textContent=`${list.length} أقسام`;$('pageInfo').textContent=`صفحة ${page} من ${pages}`;$('previousButton').disabled=page===1;$('nextButton').disabled=page===pages;document.querySelectorAll('.section-card').forEach(c=>c.onclick=()=>location.hash=c.dataset.title.includes('المنظومة')?'strategy':'daily')}function nextDaily(){let i=(Number(localStorage.getItem('dailyIndex')||0)+1)%daily.length;localStorage.setItem('dailyIndex',i);[$('dailyTitle').textContent,$('dailyText').textContent,$('dailySource').textContent]=daily[i]}function setup(){renderTabs();render();$('searchInput').oninput=()=>{page=1;render()};$('sortBy').onchange=render;$('resetButton').onclick=()=>{$('searchInput').value='';$('sortBy').value='popular';category='الكل';page=1;renderTabs();render()};$('previousButton').onclick=()=>{page--;render()};$('nextButton').onclick=()=>{page++;render()};$('newDaily').onclick=nextDaily;$('favoriteCount').textContent=favorites;$('favoritesButton').onclick=()=>{favorites++;localStorage.setItem('favorites',favorites);$('favoriteCount').textContent=favorites};$('menuButton').onclick=()=>{$('mobileNav').classList.toggle('open');$('menuButton').setAttribute('aria-expanded',$('mobileNav').classList.contains('open'))};$('themeButton').onclick=()=>{document.body.classList.toggle('dark');localStorage.setItem('dark',document.body.classList.contains('dark'));$('themeButton').textContent=document.body.classList.contains('dark')?'☀️':'🌙'};if(localStorage.getItem('dark')==='true')$('themeButton').click();window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();window.installPrompt=e;$('installButton').hidden=false});$('installButton').onclick=async()=>{if(window.installPrompt){window.installPrompt.prompt();window.installPrompt=null}}}document.addEventListener('DOMContentLoaded',setup);if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js');
+const summary = {
+  title: 'زاد المسلم',
+  description: 'منصة إسلامية رقمية متكاملة تجمع بين المعرفة الإسلامية والعبادات والتعلم والبيانات في هيكل موحد قابل للتوسع.',
+  status: 'MVP جاهز للتوسعة',
+  features: [
+    'واجهة عربية RTL',
+    'آية اليوم',
+    'حديث اليوم',
+    'أذكار متدرجة',
+    'سبحة إلكترونية',
+    'متابعة العبادات',
+    'سطح المنظومة الإسلامية الرقمية',
+    'تصميم متجاوب ومتعدد الأقسام'
+  ],
+  nextSteps: [
+    'إضافة صفحات مستقلة للقرآن والأذكار والحديث',
+    'إنشاء قسم التعليم والوظائف الرقمية',
+    'إضافة بيانات المنظومة والمؤسسات',
+    'تصميم لوحة إدارة محتوى',
+    'إعداد قاعدة بيانات وقسم التسجيل',
+    'توسيع المنظومة إلى منظومة كاملة للبيانات والخدمات'
+  ]
+};
+
+console.log('Zaad al-Muslim project loaded');
+console.log(summary);

@@ -88,3 +88,5 @@ jobs:
           name: zaad-almuslim-debug-apk
           path: android/app/build/outputs/apk/debug/*.apk
           if-no-files-found: error
+
+# Verified trigger commit: package APK after quality checks.

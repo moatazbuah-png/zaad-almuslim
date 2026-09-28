@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "policy": "روابط المصادر الأصلية/المكتبات؛ لا تُنسخ نصوص الكتب داخل التطبيق إلا إذا كان الترخيص يسمح بذلك.",
+  "sources": [
+    {"id":"sahih-bukhari","title":"صحيح البخاري","author":"محمد بن إسماعيل البخاري","category":"حديث","source":"Sunnah.com","url":"https://sunnah.com/bukhari"},
+    {"id":"sahih-muslim","title":"صحيح مسلم","author":"مسلم بن الحجاج","category":"حديث","source":"Islamweb Library","url":"https://islamweb.net/ar/library/"},
+    {"id":"sunan-abi-dawud","title":"سنن أبي داود","author":"أبو داود سليمان بن الأشعث","category":"حديث","source":"Islamweb Library","url":"https://islamweb.net/ar/library/"},
+    {"id":"jami-tirmidhi","title":"جامع الترمذي","author":"محمد بن عيسى الترمذي","category":"حديث","source":"Islamweb Library","url":"https://islamweb.net/ar/library/"},
+    {"id":"sunan-nasai","title":"سنن النسائي","author":"أحمد بن شعيب النسائي","category":"حديث","source":"Islamweb Library","url":"https://islamweb.net/ar/library/"},
+    {"id":"sunan-ibn-majah","title":"سنن ابن ماجه","author":"محمد بن يزيد ابن ماجه","category":"حديث","source":"Islamweb Library","url":"https://islamweb.net/ar/library/"},
+    {"id":"musnad-ahmad","title":"مسند الإمام أحمد","author":"أحمد بن حنبل","category":"حديث","source":"Islamweb Library","url":"https://islamweb.net/ar/library/"},
+    {"id":"muwatta-malik","title":"موطأ مالك","author":"مالك بن أنس","category":"حديث","source":"Islamweb Library","url":"https://islamweb.net/ar/library/"},
+    {"id":"riyad-al-salihin","title":"رياض الصالحين","author":"يحيى بن شرف النووي","category":"حديث وآداب","source":"Islamweb Library","url":"https://islamweb.net/ar/library/"},
+    {"id":"bulugh-al-maram","title":"بلوغ المرام","author":"أحمد بن علي ابن حجر العسقلاني","category":"حديث أحكام","source":"Islamweb Library","url":"https://islamweb.net/ar/library/"},
+    {"id":"tafsir-tabari","title":"جامع البيان في تفسير القرآن","author":"محمد بن جرير الطبري","category":"تفسير","source":"Tafsir.app","url":"https://tafsir.app/tabari"},
+    {"id":"tafsir-ibn-kathir","title":"تفسير القرآن العظيم","author":"إسماعيل بن عمر ابن كثير","category":"تفسير","source":"Tafsir.app","url":"https://tafsir.app/ibn-katheer"},
+    {"id":"tafsir-qurtubi","title":"الجامع لأحكام القرآن","author":"محمد بن أحمد القرطبي","category":"تفسير","source":"Tafsir.app","url":"https://tafsir.app/qurtubi"},
+    {"id":"tafsir-baghawi","title":"معالم التنزيل","author":"الحسين بن مسعود البغوي","category":"تفسير","source":"Tafsir.app","url":"https://tafsir.app/"},
+    {"id":"zad-al-maad","title":"زاد المعاد في هدي خير العباد","author":"محمد بن أبي بكر ابن قيم الجوزية","category":"سيرة وفقه","source":"Islamweb Library","url":"https://islamweb.net/ar/library/"},
+    {"id":"talbis-iblis","title":"تلبيس إبليس","author":"عبد الرحمن بن علي ابن الجوزي","category":"تزكية","source":"Islamweb Library","url":"https://islamweb.net/ar/library/"},
+    {"id":"fath-al-bari","title":"فتح الباري شرح صحيح البخاري","author":"أحمد بن علي ابن حجر العسقلاني","category":"شرح حديث","source":"Islamweb Library","url":"https://islamweb.net/ar/library/"},
+    {"id":"sharh-nawawi-muslim","title":"شرح النووي على صحيح مسلم","author":"يحيى بن شرف النووي","category":"شرح حديث","source":"Islamweb Library","url":"https://islamweb.net/ar/library/"}
+  ],
+  "verified_at": "2026-09-28"
+}

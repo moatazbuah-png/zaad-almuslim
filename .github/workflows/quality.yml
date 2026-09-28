@@ -15,25 +15,42 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Validate JSON manifests
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Validate JSON
         run: |
-          python - <<'PY'
-          import json
-          from pathlib import Path
-          for path in [Path('manifest.webmanifest')]:
-              json.loads(path.read_text(encoding='utf-8'))
-              print(f'valid JSON: {path}')
-          PY
+          node -e "JSON.parse(require('fs').readFileSync('manifest.webmanifest','utf8')); JSON.parse(require('fs').readFileSync('data/content.json','utf8')); console.log('JSON valid')"
 
       - name: Check required files
         run: |
           test -f index.html
           test -f style.css
-          test -f script.js
           test -f sw.js
           test -f manifest.webmanifest
           test -f icons/icon.svg
+          test -f js/integration.js
+          test -f js/bootstrap.js
+          test -f js/content.js
+          test -f tests/core.test.js
 
-      - name: Basic source safety checks
+      - name: Validate JavaScript syntax
+        run: find js tests -name '*.js' -print0 | xargs -0 -n1 node --check
+
+      - name: Source safety checks
         run: |
           ! grep -RInE 'AIza[0-9A-Za-z_-]{20,}|sk-[A-Za-z0-9]{20,}|ghp_[A-Za-z0-9]{20,}' . --exclude-dir=.git
+          ! grep -RInE '<script[^>]+src=.*http://' . --include='*.html' --exclude-dir=.git
+
+      - name: Validate application wiring
+        run: |
+          grep -q 'type="module" src="./js/integration.js"' index.html
+          grep -q 'manifest.webmanifest' index.html
+          grep -q "register('./sw.js'" index.html
+          grep -q "CACHE_NAME = 'zaad-almuslim-v4'" sw.js
+
+      - name: Run tests
+        run: |
+          if [ -f package.json ] && node -e "const p=require('./package.json'); process.exit(p.scripts && p.scripts.test ? 0 : 1)"; then npm test; else node tests/core.test.js; fi

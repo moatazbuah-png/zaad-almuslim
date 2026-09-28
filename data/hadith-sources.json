@@ -1,0 +1,19 @@
+{
+  "policy":"مصادر مرجعية؛ لا يُنشأ نص حديث أو حكم من النموذج.",
+  "collections":[
+    {"id":"bukhari","name":"صحيح البخاري","author":"محمد بن إسماعيل البخاري","url":"https://sunnah.com/bukhari","priority":"primary"},
+    {"id":"muslim","name":"صحيح مسلم","author":"مسلم بن الحجاج","url":"https://sunnah.com/muslim","priority":"primary"},
+    {"id":"abudawud","name":"سنن أبي داود","author":"أبو داود السجستاني","url":"https://sunnah.com/abudawud","priority":"primary"},
+    {"id":"tirmidhi","name":"جامع الترمذي","author":"محمد بن عيسى الترمذي","url":"https://sunnah.com/tirmidhi","priority":"primary"},
+    {"id":"nasai","name":"سنن النسائي","author":"أحمد بن شعيب النسائي","url":"https://sunnah.com/nasai","priority":"primary"},
+    {"id":"ibnmajah","name":"سنن ابن ماجه","author":"محمد بن يزيد ابن ماجه","url":"https://sunnah.com/ibnmajah","priority":"primary"},
+    {"id":"malik","name":"موطأ مالك","author":"مالك بن أنس","url":"https://sunnah.com/malik","priority":"secondary"},
+    {"id":"ahmad","name":"مسند أحمد","author":"أحمد بن حنبل","url":"https://sunnah.com/ahmad","priority":"secondary"},
+    {"id":"darimi","name":"سنن الدارمي","author":"عبد الله الدارمي","url":"https://sunnah.com/darimi","priority":"secondary"},
+    {"id":"riyad","name":"رياض الصالحين","author":"النووي","url":"https://sunnah.com/riyadussalihin","priority":"secondary"},
+    {"id":"nawawi40","name":"الأربعون النووية","author":"النووي","url":"https://sunnah.com/nawawi40","priority":"secondary"},
+    {"id":"mishkat","name":"مشكاة المصابيح","author":"الخطيب التبريزي","url":"https://sunnah.com/mishkat","priority":"secondary"}
+  ],
+  "requiredFields":["id","collectionId","hadithNumber","arabicText","sourceUrl"],
+  "optionalFields":["grade","grader","book","chapter","narrator","translation"]
+}

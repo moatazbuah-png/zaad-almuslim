@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "title": "هدي النبي ﷺ",
+  "policy": "لا تُضاف رواية أو دعاء أو سنة إلا مع مصدر يمكن تتبعه. الروابط تشير إلى مصادر أصلية أو قواعد حديث موثوقة ولا تُنسخ مواد محمية بلا إذن.",
+  "categories": [
+    {"id":"morning-evening","title":"أذكار الصباح والمساء","topics":["الصباح","المساء"]},
+    {"id":"sleep","title":"أذكار النوم والاستيقاظ","topics":["النوم","الاستيقاظ"]},
+    {"id":"food","title":"سنن الطعام والشراب","topics":["الطعام","الشراب"]},
+    {"id":"mosque","title":"سنن المسجد","topics":["دخول المسجد","الخروج من المسجد"]},
+    {"id":"travel","title":"سنن السفر","topics":["السفر","الركوب"]},
+    {"id":"prayer","title":"سنن الصلاة وأذكارها","topics":["الصلاة","بعد الصلاة"]},
+    {"id":"daily-life","title":"الهدي اليومي والمعاملات","topics":["اللباس","النظافة","المعاملات","الآداب"]}
+  ],
+  "sources": [
+    {"id":"bukhari","title":"صحيح البخاري","author":"محمد بن إسماعيل البخاري","type":"hadith-book","url":"https://sunnah.com/bukhari"},
+    {"id":"muslim","title":"صحيح مسلم","author":"مسلم بن الحجاج","type":"hadith-book","url":"https://sunnah.com/muslim"},
+    {"id":"abu-dawud","title":"سنن أبي داود","author":"أبو داود السجستاني","type":"hadith-book","url":"https://sunnah.com/abudawud"},
+    {"id":"tirmidhi","title":"جامع الترمذي","author":"محمد بن عيسى الترمذي","type":"hadith-book","url":"https://sunnah.com/tirmidhi"},
+    {"id":"nasai","title":"سنن النسائي","author":"أحمد بن شعيب النسائي","type":"hadith-book","url":"https://sunnah.com/nasai"},
+    {"id":"ibn-majah","title":"سنن ابن ماجه","author":"محمد بن يزيد ابن ماجه","type":"hadith-book","url":"https://sunnah.com/ibnmajah"},
+    {"id":"riyad-us-salihin","title":"رياض الصالحين","author":"يحيى بن شرف النووي","type":"hadith-book","url":"https://sunnah.com/riyadussalihin"}
+  ],
+  "content": [],
+  "note": "هذه النسخة تسجل التصنيفات والمصادر فقط. لا يتم توليد نصوص الأحاديث أو الأدعية من النموذج؛ تُضاف المواد بعد استيرادها والتحقق من المصدر والترقيم والحكم الحديثي عند توفره."
+}

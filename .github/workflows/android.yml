@@ -2,6 +2,8 @@ name: Build Android APK
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main, 'rebuild/**']
 
 permissions:
   contents: read
@@ -9,7 +11,7 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 40
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -29,6 +31,31 @@ jobs:
           sdkmanager --install "platform-tools" "platforms;android-35" "build-tools;35.0.0"
           yes | sdkmanager --licenses >/dev/null || true
 
+      - name: Prepare verified content datasets
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p data/quran data/hadith
+          curl -fsSL --retry 3 --retry-all-errors -o data/quran.json https://cdn.jsdelivr.net/npm/quran-json@3.1.2/dist/quran.json
+          for book in bukhari muslim abudawud tirmidhi nasai ibnmajah malik ahmad darimi; do
+            curl -fsSL --retry 3 --retry-all-errors -o "data/hadith/${book}.json" "https://raw.githubusercontent.com/AhmedBaset/hadith-json/v1.2.0/db/by_book/the_9_books/${book}.json"
+          done
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          q=json.loads(Path('data/quran.json').read_text(encoding='utf-8'))
+          chapters=q.get('chapters') or q.get('surahs') or []
+          assert len(chapters)==114, f'Quran chapters={len(chapters)}'
+          verses=sum(len(c.get('verses') or c.get('ayahs') or []) for c in chapters)
+          assert verses==6236, f'Quran verses={verses}'
+          for p in Path('data/hadith').glob('*.json'):
+            raw=json.loads(p.read_text(encoding='utf-8'))
+            rows=raw.get('hadiths') or raw.get('data') or raw
+            assert isinstance(rows,list) and rows, p
+          print(f'Validated Quran: 114 surahs / {verses} ayahs')
+          print('Validated hadith books:', ', '.join(sorted(p.stem for p in Path('data/hadith').glob('*.json'))))
+          PY
+
       - name: Prepare web assets
         run: |
           rm -rf android/app/src/main/assets
@@ -47,6 +74,8 @@ jobs:
           test -f android/app/build.gradle
           test -f android/app/src/main/AndroidManifest.xml
           test -f android/app/src/main/java/com/zaadalmuslim/MainActivity.java
+          test -s android/app/src/main/assets/data/quran.json
+          test -s android/app/src/main/assets/data/hadith/bukhari.json
 
       - name: Build APK
         run: gradle -p android :app:assembleDebug --no-daemon --stacktrace

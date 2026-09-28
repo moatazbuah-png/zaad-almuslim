@@ -20,9 +20,19 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Validate JSON
+      - name: Validate JSON and content invariants
         run: |
-          node -e "JSON.parse(require('fs').readFileSync('manifest.webmanifest','utf8')); JSON.parse(require('fs').readFileSync('data/content.json','utf8')); console.log('JSON valid')"
+          node - <<'NODE'
+          const fs = require('fs');
+          const manifest = JSON.parse(fs.readFileSync('manifest.webmanifest', 'utf8'));
+          const content = JSON.parse(fs.readFileSync('data/content.json', 'utf8'));
+          if (!manifest.name || !manifest.start_url) throw new Error('Invalid PWA manifest');
+          if (!Array.isArray(content.surahs) || content.surahs.length !== 114) throw new Error('Quran catalog must contain 114 surahs');
+          if (new Set(content.surahs.map(s => s.id)).size !== 114) throw new Error('Quran surah IDs must be unique');
+          if (content.surahs.reduce((n, s) => n + Number(s.verses || 0), 0) !== 6236) throw new Error('Quran verse count mismatch');
+          if (!content.modules || Object.values(content.modules).some(v => v !== true)) throw new Error('Module manifest incomplete');
+          console.log('JSON/content invariants valid');
+          NODE
 
       - name: Check required files
         run: |

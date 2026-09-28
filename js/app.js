@@ -6,3 +6,4 @@ export * from './features/hadith.js';
 export * from './features/search.js';
 export * from './features/prayer.js';
 export * from './features/settings.js';
+export * from './search.js';

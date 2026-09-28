@@ -1,6 +1,7 @@
 import { getContent } from './content.js';
 import { getState, subscribe } from './core/state.js';
-import { setLastRead, toggleBookmark } from './features/quran.js';
+import { setLastRead, toggleBookmark, getQuranSurah } from './features/quran.js';
+import { getQuranCatalog } from './features/quran-data.js';
 import { incrementDhikr, resetDhikr } from './features/adhkar.js';
 import { getHadith } from './features/hadith.js';
 import { unifiedSearch } from './features/search.js';
@@ -10,6 +11,7 @@ import { updateSettings } from './features/settings.js';
 const escape = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[char]));
 let content = null;
 let active = 'home';
+let activeSurah = null;
 let searchTimer = 0;
 
 function shell() {
@@ -27,19 +29,26 @@ function shell() {
 
 function homeView() {
   const state = getState();
-  const stats = content ? `${content.surahs.length} سورة مفهرسة • ${content.athkar.length} ذكر • ${content.hadith.length} حديث` : '';
+  const stats = content ? `${content.surahs.length} سجل محلي • ${content.athkar.length} ذكر • ${content.hadith.length} حديث` : '';
   return `<div class="grid">
     <article class="card hero"><h2>السلام عليكم ورحمة الله وبركاته</h2><p>ابدأ بقراءة القرآن أو الأذكار، وتابع محفوظاتك ووردك اليومي.</p><button class="primary" data-tab="quran">فتح القرآن</button></article>
     <article class="card"><h3>آخر قراءة</h3><p>${state.lastRead ? `السورة ${state.lastRead.surahId} — الآية ${state.lastRead.verse}` : 'لم تسجل قراءة بعد'}</p><button data-tab="quran">متابعة</button></article>
     <article class="card"><h3>محفوظاتك</h3><p>${state.bookmarks.length} علامة محفوظة</p><button data-tab="quran">عرض القرآن</button></article>
-    <article class="card"><h3>محتوى المنظومة</h3><p>${escape(stats)}</p><small>الأرقام تعكس المحتوى المحلي المتاح حاليًا.</small></article>
+    <article class="card"><h3>المحتوى</h3><p>${escape(stats)}</p><small>القرآن الكامل تتم مزامنته من مصدره الموثق ويُخزّن محليًا بعد أول مزامنة.</small></article>
   </div>`;
 }
 
-function quranView() {
-  if (!content) return loading();
-  return `<div class="section-head"><div><h2>القرآن الكريم</h2><p class="muted">فهرس السور والقراءة المحفوظة. لا نعرض نصًا قرآنيًا غير موجود في البيانات الموثقة.</p></div></div>
-    <div class="list">${content.surahs.map(s => `<article class="item"><div><h3>${escape(s.name)}</h3><p>${escape(s.type)} • ${s.verses} آية • الجزء ${s.juz}</p></div><div class="actions"><button data-read="${s.id}" data-verse="1">ابدأ</button><button data-bookmark="${s.id}" data-verse="1">حفظ</button></div></article>`).join('')}</div>`;
+async function quranView() {
+  const catalog = await getQuranCatalog();
+  if (!catalog.length) return `<article class="card center"><h2>القرآن غير متاح حاليًا</h2><p>تحقق من الاتصال ثم أعد المحاولة. لا يتم إنشاء أو تعديل النص القرآني محليًا.</p></article>`;
+  if (activeSurah) {
+    const surah = await getQuranSurah(activeSurah);
+    if (!surah) return `<article class="card center">تعذر تحميل السورة.</article>`;
+    return `<div class="section-head"><div><button data-quran-back>← الفهرس</button><h2>${escape(surah.name)}</h2><p class="muted">${escape(surah.type)} • ${surah.verses} آية • الجزء ${surah.juz} • مصدر النص: Tanzil Project</p></div></div>
+      <div class="list">${surah.versesText.map(v => `<article class="item"><div><p class="quran-verse">${escape(v.text)}</p><small>آية ${v.verse}</small></div><div class="actions"><button data-read="${surah.id}" data-verse="${v.verse}">آخر قراءة</button><button data-bookmark="${surah.id}" data-verse="${v.verse}">حفظ</button></div></article>`).join('')}</div>`;
+  }
+  return `<div class="section-head"><div><h2>القرآن الكريم</h2><p class="muted">جميع السور الـ114 بالنص العثماني، مع حفظ القراءة والعلامات. النص يُستخدم دون تعديل وفق شروط المصدر.</p></div></div>
+    <div class="list">${catalog.map(s => `<article class="item"><div><h3>${escape(s.name)}</h3><p>${escape(s.type)} • ${s.verses} آية • الجزء ${s.juz} • الصفحة ${s.page}</p></div><div class="actions"><button data-open-surah="${s.id}">قراءة</button><button data-bookmark="${s.id}" data-verse="1">حفظ</button></div></article>`).join('')}</div>`;
 }
 
 function adhkarView() {
@@ -53,18 +62,15 @@ async function hadithView() {
   return `<div class="section-head"><div><h2>الحديث</h2><p class="muted">النصوص المعروضة مقيدة بحالة المراجعة في البيانات.</p></div></div><div class="list">${items.map(h => `<article class="item"><div><h3>${escape(h.title)}</h3><p>${escape(h.text)}</p><small>${escape(h.source)} • ${escape(h.reference)}</small></div></article>`).join('')}</div>`;
 }
 
-function searchView() { return `<div class="section-head"><div><h2>البحث العربي الموحد</h2><p class="muted">ابحث في القرآن المفهرس والأذكار والحديث.</p></div></div><form id="search-form" class="search"><input id="search-input" aria-label="بحث" placeholder="اكتب كلمة للبحث…" autocomplete="off"><button class="primary">بحث</button></form><div id="search-results" class="list"></div>`; }
-
+function searchView() { return `<div class="section-head"><div><h2>البحث العربي الموحد</h2><p class="muted">ابحث في المحتوى المحلي.</p></div></div><form id="search-form" class="search"><input id="search-input" aria-label="بحث" placeholder="اكتب كلمة للبحث…" autocomplete="off"><button class="primary">بحث</button></form><div id="search-results" class="list"></div>`; }
 function tasbihView() { const p=getState().dhikrProgress.tasbih||0; return `<article class="card center"><h2>السبحة</h2><div class="big-number">${p}</div><button class="primary big-button" data-dhikr="tasbih">سبّح</button><button data-reset="tasbih">تصفير</button></article>`; }
-
 function prayerView() { const p=getPrayerSettings(); return `<article class="card"><h2>إعدادات الصلاة</h2><p class="muted">تُحفظ التفضيلات محليًا. أوقات الصلاة الفعلية تحتاج مزود حساب/موقع موثق.</p><label>طريقة الحساب<input id="prayer-method" value="${escape(p.calculationMethod)}"></label><label>المذهب<input id="prayer-madhab" value="${escape(p.madhab)}"></label><label>المدينة<input id="prayer-city" value="${escape(p.city || '')}"></label><button class="primary" id="save-prayer">حفظ</button></article>`; }
-
 function settingsView() { const s=getState().settings; return `<article class="card"><h2>الإعدادات</h2>${[['notifications','الإشعارات'],['location','الموقع'],['sound','الصوت']].map(([k,l])=>`<label class="toggle"><span>${l}</span><input type="checkbox" data-setting="${k}" ${s[k]?'checked':''}></label>`).join('')}<p class="muted">بيانات الحالة والتفضيلات تُحفظ محليًا.</p></article>`; }
 function loading() { return `<article class="card center">جاري تحميل المحتوى…</article>`; }
 
 async function render() {
   const view=document.getElementById('view'); if(!view) return;
-  let html = active==='home'?homeView():active==='quran'?quranView():active==='adhkar'?adhkarView():active==='hadith'?await hadithView():active==='search'?searchView():active==='tasbih'?tasbihView():active==='prayer'?prayerView():settingsView();
+  let html = active==='home'?homeView():active==='quran'?await quranView():active==='adhkar'?adhkarView():active==='hadith'?await hadithView():active==='search'?searchView():active==='tasbih'?tasbihView():active==='prayer'?prayerView():settingsView();
   view.innerHTML=html;
   document.querySelectorAll('[data-tab]').forEach(button=>button.setAttribute('aria-current',button.dataset.tab===active?'page':'false'));
 }
@@ -81,11 +87,13 @@ export async function mountUI() {
   root.innerHTML=shell();
   content=await getContent();
   const status=document.getElementById('content-status');
-  if(status) status.textContent=`${content.surahs.length} سورة • ${content.athkar.length} أذكار • ${content.hadith.length} أحاديث`;
+  if(status) status.textContent=`القرآن 114 سورة • ${content.athkar.length} أذكار • ${content.hadith.length} أحاديث`;
   await render();
   root.addEventListener('click', async event => {
-    const tab=event.target.closest('[data-tab]'); if(tab){ active=tab.dataset.tab; await render(); return; }
-    const read=event.target.closest('[data-read]'); if(read){ await setLastRead(read.dataset.read,Number(read.dataset.verse)); await render(); return; }
+    const tab=event.target.closest('[data-tab]'); if(tab){ active=tab.dataset.tab; activeSurah=null; await render(); return; }
+    const open=event.target.closest('[data-open-surah]'); if(open){ active='quran'; activeSurah=Number(open.dataset.openSurah); await render(); return; }
+    if(event.target.closest('[data-quran-back]')){ activeSurah=null; await render(); return; }
+    const read=event.target.closest('[data-read]'); if(read){ await setLastRead(read.dataset.read,Number(read.dataset.verse)); return; }
     const bookmark=event.target.closest('[data-bookmark]'); if(bookmark){ await toggleBookmark(bookmark.dataset.bookmark,Number(bookmark.dataset.verse)); await render(); return; }
     const dhikr=event.target.closest('[data-dhikr]'); if(dhikr){ incrementDhikr(dhikr.dataset.dhikr,Number(dhikr.dataset.max)||Infinity); await render(); return; }
     const reset=event.target.closest('[data-reset]'); if(reset){ resetDhikr(reset.dataset.reset); await render(); return; }

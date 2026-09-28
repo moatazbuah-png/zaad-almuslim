@@ -1,0 +1,51 @@
+{
+  "schemaVersion": "1.0.0",
+  "policy": "External media is linked or streamed only from the documented source; copyrighted lectures are not bundled without permission.",
+  "quran": {
+    "text": {
+      "provider": "Tanzil Project",
+      "url": "https://tanzil.net/",
+      "license": "CC BY 3.0",
+      "note": "Quran text must remain unchanged and attribution must be preserved."
+    },
+    "audio": {
+      "provider": "Quran.com / Quran Foundation",
+      "url": "https://quran.com/radio",
+      "apiDocs": "https://api-docs.quran.com/docs/api-reference/",
+      "reciters": [
+        "عبد الباسط عبد الصمد",
+        "محمود خليل الحصري",
+        "محمد صديق المنشاوي",
+        "مشاري راشد العفاسي",
+        "ماهر المعيقلي",
+        "عبد الرحمن السديس",
+        "سعد الغامدي",
+        "أبو بكر الشاطري"
+      ]
+    }
+  },
+  "lectures": {
+    "primaryCatalog": {
+      "provider": "Islamweb Audio",
+      "url": "https://audio.islamweb.net/audio/",
+      "note": "Use source pages and their published permissions/terms; do not mirror copyrighted audio into the app without permission."
+    },
+    "categories": [
+      "تفسير القرآن",
+      "العقيدة",
+      "الفقه",
+      "السيرة النبوية",
+      "الحديث وعلومه",
+      "الأخلاق والآداب",
+      "التربية الإيمانية",
+      "محاضرات ودروس"
+    ]
+  },
+  "sourcePrinciples": [
+    "Every Quran text record must have a traceable source.",
+    "Every hadith and dhikr record must retain source/reference metadata.",
+    "Do not invent verses, hadith text, scholar quotes, or lecture metadata.",
+    "For third-party audio, prefer streaming/linking unless redistribution rights are explicit.",
+    "Keep a visible source and attribution screen in the application."
+  ]
+}

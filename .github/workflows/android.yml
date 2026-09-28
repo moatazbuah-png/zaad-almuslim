@@ -23,24 +23,29 @@ jobs:
 
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
-        with:
-          packages: platform-tools
-          accept-android-sdk-licenses: true
 
       - name: Install Android platform
-        run: sdkmanager "platforms;android-35" "build-tools;35.0.0"
+        run: sdkmanager "platform-tools" "platforms;android-35" "build-tools;35.0.0"
+
+      - name: Prepare web assets
+        run: |
+          mkdir -p android/app/src/main/assets
+          rsync -a --exclude='.git/' --exclude='.github/' --exclude='android/' ./ android/app/src/main/assets/
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.10.2'
 
       - name: Validate Android project
         run: |
-          test -f android/gradlew
-          chmod +x android/gradlew
-          cd android
-          ./gradlew tasks --no-daemon
+          test -f android/settings.gradle
+          test -f android/app/build.gradle
+          test -f android/app/src/main/AndroidManifest.xml
+          gradle -p android :app:tasks --no-daemon
 
       - name: Build debug APK
-        run: |
-          cd android
-          ./gradlew assembleDebug --no-daemon
+        run: gradle -p android :app:assembleDebug --no-daemon
 
       - name: Upload APK
         uses: actions/upload-artifact@v4

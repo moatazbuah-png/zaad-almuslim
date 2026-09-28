@@ -1,0 +1,18 @@
+{
+  "product":"مِشكاة | MISHKAT",
+  "modules":[
+    {"id":"quran","status":"source-backed","features":["114 surahs","reading","audio","repeat","bookmark","last-read","ayah markers","tafsir sources"]},
+    {"id":"hadith","status":"source-registry-ready","features":["major collections","number","source","grade when available","Arabic search"]},
+    {"id":"adhkar","status":"source-backed architecture","features":["morning-evening","sleep","prayer","travel","food","home","mosque"]},
+    {"id":"prophetic-guidance","status":"source-registry-ready","features":["daily sunnah","duas","adab","source traceability"]},
+    {"id":"scholars","status":"catalog-ready","features":["independent scholar pages","original-source video links","lessons","tafsir","biography"]},
+    {"id":"prayer","status":"configuration-ready","features":["times","qibla","adhan","notifications","calculation method","juristic method"]},
+    {"id":"search","status":"architecture-ready","features":["Quran","hadith","adhkar","duas","books","lectures","diacritics-insensitive Arabic"]},
+    {"id":"user","status":"architecture-ready","features":["favorites","bookmarks","last-read","progress","local persistence","export/import","optional sync"]},
+    {"id":"offline","status":"PWA-ready","features":["core cache","versioned cache","offline fallback","optional content downloads"]},
+    {"id":"accessibility","status":"required","features":["RTL","dark mode","font scaling","contrast","reduced motion","screen-reader labels"]},
+    {"id":"security","status":"required","features":["no client secrets","safe rendering","URL validation","storage boundaries","CSP-compatible architecture"]},
+    {"id":"release","status":"gated","features":["CI","unit tests","integration tests","content schema tests","PWA tests","Android release validation"]}
+  ],
+  "releaseRule":"لا تُعلن النسخة نهائية قبل نجاح اختبارات الكود، والتحقق من المحتوى والمصادر، واختبار Android الفعلي."
+}

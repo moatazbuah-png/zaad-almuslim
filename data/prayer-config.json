@@ -1,0 +1,8 @@
+{
+  "features":["location-based-times","qibla","adhan","notifications","manual-location","offline-last-known-times"],
+  "calculationMethods":["MWL","ISNA","Egyptian","Makkah","Karachi","Tehran","JAKIM","UmmAlQura"],
+  "juristicMethods":["Shafi","Hanafi"],
+  "precisionPolicy":"أوقات الصلاة تُحسب من الإحداثيات المحلية وإعداد طريقة الحساب؛ لا تُثبت أوقات عامة لجميع المستخدمين.",
+  "privacy":"الموقع اختياري ولا يُرسل إلى خادم من دون موافقة صريحة.",
+  "qibla":"تحسب الاتجاه محليًا من موقع المستخدم إلى الكعبة عند توفر الإحداثيات."
+}

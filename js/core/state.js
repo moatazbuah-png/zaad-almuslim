@@ -6,6 +6,13 @@ const INITIAL_STATE = Object.freeze({
   lastRead: null,
   bookmarks: [],
   dhikrProgress: {},
+  prayer: {
+    calculationMethod: 'auto',
+    madhab: 'shafi',
+    city: null,
+    latitude: null,
+    longitude: null
+  },
   settings: {
     notifications: false,
     location: false,
@@ -13,9 +20,7 @@ const INITIAL_STATE = Object.freeze({
   }
 });
 
-function clone(value) {
-  return JSON.parse(JSON.stringify(value));
-}
+function clone(value) { return JSON.parse(JSON.stringify(value)); }
 
 function sanitizeState(value) {
   const source = value && typeof value === 'object' ? value : {};
@@ -24,6 +29,7 @@ function sanitizeState(value) {
     ...source,
     bookmarks: Array.isArray(source.bookmarks) ? source.bookmarks : [],
     dhikrProgress: source.dhikrProgress && typeof source.dhikrProgress === 'object' ? source.dhikrProgress : {},
+    prayer: { ...INITIAL_STATE.prayer, ...(source.prayer || {}) },
     settings: { ...INITIAL_STATE.settings, ...(source.settings || {}) }
   };
 }
@@ -31,9 +37,7 @@ function sanitizeState(value) {
 let state = sanitizeState(readStorage('state', INITIAL_STATE));
 const listeners = new Set();
 
-export function getState() {
-  return clone(state);
-}
+export function getState() { return clone(state); }
 
 export function setState(patch) {
   const next = typeof patch === 'function' ? patch(getState()) : { ...state, ...patch };

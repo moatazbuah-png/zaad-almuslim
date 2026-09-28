@@ -1,7 +1,7 @@
-/* زاد المسلم — local search */
+/* زاد المسلم — local Arabic search */
 import { searchContent } from './content.js';
 
-function normalizeArabic(value) {
+export function normalizeArabic(value) {
   return String(value ?? '')
     .normalize('NFKD')
     .replace(/[\u064B-\u065F\u0670]/g, '')
@@ -20,5 +20,3 @@ export async function searchArabic(query, options = {}) {
   const results = await searchContent(normalized, options);
   return results.filter(item => normalizeArabic(`${item.title} ${item.text} ${item.source} ${item.reference}`).includes(normalized));
 }
-
-export { normalizeArabic };

@@ -1,0 +1,11 @@
+{
+  "textSources":[
+    {"id":"tanzil","name":"Tanzil Quran Text","url":"https://tanzil.net/","licenseUrl":"https://tanzil.net/docs/Text_License","policy":"لا يُغيّر النص وتُحفظ النسبة للمصدر"}
+  ],
+  "studySources":[
+    {"id":"quran-com","name":"Quran.com","url":"https://quran.com/","features":["tafsir","translations","word-by-word","search"]}
+  ],
+  "recitationSource":{"id":"quran-com-reciters","name":"Quran.com Reciters","url":"https://quran.com/reciters","features":["multiple-reciter-catalog","murattal","mujawwad"]},
+  "requiredQuranStats":{"surahs":114,"verses":6236},
+  "contentRule":"لا تُكتب آيات أو تُنشأ من النموذج؛ الاستيراد والتحقق يتمان من مصدر موثق."
+}

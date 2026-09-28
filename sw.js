@@ -1,7 +1,10 @@
-const CACHE_NAME = 'zaad-almuslim-v4';
+const CACHE_NAME = 'zaad-almuslim-v5';
 const APP_SHELL = [
-  './', './index.html', './style.css', './script.js', './manifest.webmanifest',
-  './data/content.json', './icons/icon.svg', './js/integration.js'
+  './', './index.html', './style.css', './manifest.webmanifest',
+  './data/content.json', './icons/icon.svg',
+  './js/integration.js', './js/ui.js', './js/bootstrap.js', './js/content.js', './js/offline.js', './js/search.js', './js/security.js', './js/app.js',
+  './js/core/state.js', './js/core/storage.js', './js/core/errors.js',
+  './js/features/quran.js', './js/features/adhkar.js', './js/features/hadith.js', './js/features/search.js', './js/features/prayer.js', './js/features/settings.js'
 ];
 
 self.addEventListener('install', event => {

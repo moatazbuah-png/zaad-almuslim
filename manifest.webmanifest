@@ -1,13 +1,21 @@
 {
   "name": "زاد المسلم",
   "short_name": "زاد المسلم",
-  "description": "منصة إسلامية رقمية للقرآن والأذكار والحديث والعبادات",
+  "description": "منظومة إسلامية رقمية مجانية للقرآن والأذكار والحديث والعبادات والتعليم",
   "lang": "ar",
   "dir": "rtl",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#0b131e",
   "theme_color": "#0d6b50",
   "orientation": "portrait-primary",
-  "icons": []
+  "categories": ["lifestyle", "education"],
+  "prefer_related_applications": false,
+  "icons": [{"src":"./icons/icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}],
+  "shortcuts": [
+    {"name":"القرآن","short_name":"القرآن","url":"./index.html#quran"},
+    {"name":"الأذكار","short_name":"الأذكار","url":"./index.html#athkar"},
+    {"name":"الحديث","short_name":"الحديث","url":"./index.html#hadith"}
+  ]
 }

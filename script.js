@@ -1,26 +1,25 @@
-const summary = {
-  title: 'زاد المسلم',
-  description: 'منصة إسلامية رقمية متكاملة تجمع بين المعرفة الإسلامية والعبادات والتعلم والبيانات في هيكل موحد قابل للتوسع.',
-  status: 'MVP جاهز للتوسعة',
-  features: [
-    'واجهة عربية RTL',
-    'آية اليوم',
-    'حديث اليوم',
-    'أذكار متدرجة',
-    'سبحة إلكترونية',
-    'متابعة العبادات',
-    'سطح المنظومة الإسلامية الرقمية',
-    'تصميم متجاوب ومتعدد الأقسام'
-  ],
-  nextSteps: [
-    'إضافة صفحات مستقلة للقرآن والأذكار والحديث',
-    'إنشاء قسم التعليم والوظائف الرقمية',
-    'إضافة بيانات المنظومة والمؤسسات',
-    'تصميم لوحة إدارة محتوى',
-    'إعداد قاعدة بيانات وقسم التسجيل',
-    'توسيع المنظومة إلى منظومة كاملة للبيانات والخدمات'
-  ]
-};
+/* زاد المسلم — compatibility bridge */
+import { getState, setState } from './core/state.js';
+import { getContent } from './content.js';
+import { setLastRead, toggleBookmark } from './features/quran.js';
+import { incrementDhikr, resetDhikr } from './features/adhkar.js';
+import { unifiedSearch } from './features/search.js';
+import { updateSettings } from './features/settings.js';
 
-console.log('Zaad al-Muslim project loaded');
-console.log(summary);
+export async function loadContent() { return getContent(); }
+export function loadZaadState() { return getState(); }
+export function saveZaadState(patch = {}) { return setState(patch); }
+export function setLastReadCompat(surahId, verseNumber = 1) { return setLastRead(surahId, verseNumber); }
+export function toggleBookmarkCompat(surahId, verseNumber = 1) { return toggleBookmark(surahId, verseNumber); }
+export function addDhikr(id, max = Infinity) { return incrementDhikr(id, max); }
+export function resetDhikrCompat(id) { return resetDhikr(id); }
+export async function search(query, options = {}) { return unifiedSearch(query, options); }
+export function updatePreferences(patch) { return updateSettings(patch); }
+
+export const summary = Object.freeze({
+  title: 'زاد المسلم',
+  description: 'منظومة إسلامية رقمية مجانية للقرآن والأذكار والحديث والعبادات والتعليم.',
+  status: 'phase-2-integration'
+});
+
+window.ZaadApp = Object.freeze({ summary, loadState: loadZaadState, saveState: saveZaadState, loadContent, setLastRead: setLastReadCompat, toggleBookmark: toggleBookmarkCompat, addDhikr, resetDhikr: resetDhikrCompat, search, updatePreferences });

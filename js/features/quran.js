@@ -1,32 +1,34 @@
+import { getContent } from '../content.js';
 import { getState, setState } from '../core/state.js';
 
-export function setLastRead(surahId, verse = 1) {
-  const id = Number(surahId);
-  const ayah = Math.max(1, Number(verse) || 1);
-  if (!Number.isInteger(id) || id < 1 || id > 114) return getState().lastRead;
-  setState(state => ({ ...state, lastRead: { surahId: id, verse: ayah, updatedAt: new Date().toISOString() } }));
+async function validVerse(surahId, verse) {
+  const content = await getContent();
+  const surah = content.surahs.find(item => Number(item.id) === Number(surahId));
+  const ayah = Number(verse);
+  if (!surah || !Number.isInteger(ayah) || ayah < 1) return null;
+  const max = Number(surah.verses);
+  if (Number.isInteger(max) && ayah > max) return null;
+  return { surahId: Number(surahId), verse: ayah };
+}
+
+export async function setLastRead(surahId, verse = 1) {
+  const valid = await validVerse(surahId, verse);
+  if (!valid) return getState().lastRead;
+  setState(state => ({ ...state, lastRead: { ...valid, updatedAt: new Date().toISOString() } }));
   return getState().lastRead;
 }
 
-export function getLastRead() {
-  return getState().lastRead;
-}
+export function getLastRead() { return getState().lastRead; }
 
-export function toggleBookmark(surahId, verse = 1) {
-  const id = Number(surahId);
-  const ayah = Math.max(1, Number(verse) || 1);
-  if (!Number.isInteger(id) || id < 1 || id > 114) return false;
+export async function toggleBookmark(surahId, verse = 1) {
+  const valid = await validVerse(surahId, verse);
+  if (!valid) return false;
   let added = false;
   setState(state => {
-    const key = `${id}:${ayah}`;
+    const key = `${valid.surahId}:${valid.verse}`;
     const exists = state.bookmarks.some(item => item.key === key);
     added = !exists;
-    return {
-      ...state,
-      bookmarks: exists
-        ? state.bookmarks.filter(item => item.key !== key)
-        : [...state.bookmarks, { key, surahId: id, verse: ayah, createdAt: new Date().toISOString() }]
-    };
+    return { ...state, bookmarks: exists ? state.bookmarks.filter(item => item.key !== key) : [...state.bookmarks, { key, ...valid, createdAt: new Date().toISOString() }] };
   });
   return added;
 }

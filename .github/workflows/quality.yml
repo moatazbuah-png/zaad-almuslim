@@ -35,6 +35,7 @@ jobs:
           test -f js/ui.js
           test -f js/bootstrap.js
           test -f js/content.js
+          test -f js/features/quran-data.js
           test -f tests/core.test.js
 
       - name: Validate JavaScript syntax
@@ -51,7 +52,7 @@ jobs:
           grep -q 'type="module" src="./js/integration.js"' index.html
           grep -q 'manifest.webmanifest' index.html
           grep -q "register('./sw.js'" index.html
-          grep -q "CACHE_NAME = 'zaad-almuslim-v5'" sw.js
+          grep -q "CACHE_NAME = 'zaad-almuslim-v6'" sw.js
           ! grep -q "'./script.js'" sw.js
 
       - name: Run integration tests

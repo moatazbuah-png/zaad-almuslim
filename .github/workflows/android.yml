@@ -9,6 +9,7 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -18,19 +19,19 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
+          cache: gradle
 
       - name: Set up Android SDK
         uses: android-actions/setup-android@v4
-        with:
-          packages: 'platform-tools'
 
       - name: Install Android SDK packages
         run: |
+          sdkmanager --install "platform-tools" "platforms;android-35" "build-tools;35.0.0"
           yes | sdkmanager --licenses >/dev/null || true
-          sdkmanager "platform-tools" "platforms;android-35" "build-tools;35.0.0"
 
       - name: Prepare web assets
         run: |
+          rm -rf android/app/src/main/assets
           mkdir -p android/app/src/main/assets
           rsync -a --exclude='.git/' --exclude='.github/' --exclude='android/' ./ android/app/src/main/assets/
 
@@ -39,16 +40,16 @@ jobs:
         with:
           gradle-version: '8.10.2'
 
-      - name: Validate Android project
+      - name: Verify Android project
         run: |
           test -f android/settings.gradle
           test -f android/build.gradle
           test -f android/app/build.gradle
           test -f android/app/src/main/AndroidManifest.xml
-          gradle -p android :app:tasks --no-daemon
+          test -f android/app/src/main/java/com/zaadalmuslim/MainActivity.java
 
       - name: Build APK
-        run: gradle -p android :app:assembleDebug --no-daemon
+        run: gradle -p android :app:assembleDebug --no-daemon --stacktrace
 
       - name: Upload APK
         uses: actions/upload-artifact@v4

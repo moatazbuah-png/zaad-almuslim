@@ -32,6 +32,7 @@ jobs:
           test -f manifest.webmanifest
           test -f icons/icon.svg
           test -f js/integration.js
+          test -f js/ui.js
           test -f js/bootstrap.js
           test -f js/content.js
           test -f tests/core.test.js
@@ -43,14 +44,15 @@ jobs:
         run: |
           ! grep -RInE 'AIza[0-9A-Za-z_-]{20,}|sk-[A-Za-z0-9]{20,}|ghp_[A-Za-z0-9]{20,}' . --exclude-dir=.git
           ! grep -RInE '<script[^>]+src=.*http://' . --include='*.html' --exclude-dir=.git
+          ! grep -RInE 'eval\\(|new Function\\(' js tests --include='*.js'
 
       - name: Validate application wiring
         run: |
           grep -q 'type="module" src="./js/integration.js"' index.html
           grep -q 'manifest.webmanifest' index.html
           grep -q "register('./sw.js'" index.html
-          grep -q "CACHE_NAME = 'zaad-almuslim-v4'" sw.js
+          grep -q "CACHE_NAME = 'zaad-almuslim-v5'" sw.js
+          ! grep -q "'./script.js'" sw.js
 
-      - name: Run tests
-        run: |
-          if [ -f package.json ] && node -e "const p=require('./package.json'); process.exit(p.scripts && p.scripts.test ? 0 : 1)"; then npm test; else node tests/core.test.js; fi
+      - name: Run integration tests
+        run: node tests/core.test.js

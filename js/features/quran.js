@@ -1,13 +1,11 @@
-import { getContent } from '../content.js';
 import { getState, setState } from '../core/state.js';
+import { getQuranCatalog, getSurah } from './quran-data.js';
 
 async function validVerse(surahId, verse) {
-  const content = await getContent();
-  const surah = content.surahs.find(item => Number(item.id) === Number(surahId));
+  const catalog = await getQuranCatalog();
+  const surah = catalog.find(item => Number(item.id) === Number(surahId));
   const ayah = Number(verse);
-  if (!surah || !Number.isInteger(ayah) || ayah < 1) return null;
-  const max = Number(surah.verses);
-  if (Number.isInteger(max) && ayah > max) return null;
+  if (!surah || !Number.isInteger(ayah) || ayah < 1 || ayah > surah.verses) return null;
   return { surahId: Number(surahId), verse: ayah };
 }
 
@@ -31,4 +29,8 @@ export async function toggleBookmark(surahId, verse = 1) {
     return { ...state, bookmarks: exists ? state.bookmarks.filter(item => item.key !== key) : [...state.bookmarks, { key, ...valid, createdAt: new Date().toISOString() }] };
   });
   return added;
+}
+
+export async function getQuranSurah(surahId) {
+  return getSurah(surahId);
 }

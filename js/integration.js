@@ -6,6 +6,7 @@ import { unifiedSearch } from './features/search.js';
 import { getPrayerSettings, setPrayerSettings } from './features/prayer.js';
 import { updateSettings } from './features/settings.js';
 import { setText } from './security.js';
+import { mountUI } from './ui.js';
 
 function emit(name, detail = {}) { window.dispatchEvent(new CustomEvent(`zaad:${name}`, { detail })); }
 
@@ -14,6 +15,7 @@ export async function initIntegration() {
   if (initialized) return window.Zaad;
   initialized = true;
   await bootstrapZaad();
+  await mountUI();
   subscribe(state => emit('state-change', { state }));
   emit('integration-ready', { state: getState() });
   return window.Zaad;

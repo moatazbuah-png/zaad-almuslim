@@ -1,19 +1,22 @@
-const CACHE_NAME = 'zaad-almuslim-v3';
+const CACHE_NAME = 'zaad-almuslim-v4';
 const APP_SHELL = [
-  './', './index.html', './style.css', './script.js', './manifest.webmanifest',
-  './data/content.json', './icons/icon.svg'
+  './', './index.html', './style.css', './script.js', './manifest.webmanifest', './data/content.json', './icons/icon.svg',
+  './js/app.js', './js/bootstrap.js', './js/content.js', './js/offline.js', './js/search.js', './js/security.js', './js/pwa.js',
+  './js/core/errors.js', './js/core/state.js', './js/core/storage.js',
+  './js/features/adhkar.js', './js/features/hadith.js', './js/features/prayer.js', './js/features/quran.js', './js/features/search.js', './js/features/settings.js'
 ];
 
 self.addEventListener('install', event => {
-  event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(APP_SHELL)));
+  event.waitUntil(
+    caches.open(CACHE_NAME).then(cache => cache.addAll(APP_SHELL)).catch(() => caches.open(CACHE_NAME).then(cache => Promise.allSettled(APP_SHELL.map(url => cache.add(url))))
+  );
   self.skipWaiting();
 });
 
 self.addEventListener('activate', event => {
   event.waitUntil(
-    caches.keys().then(keys => Promise.all(
-      keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))
-    )).then(() => self.clients.claim())
+    caches.keys().then(keys => Promise.all(keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))))
+      .then(() => self.clients.claim())
   );
 });
 
@@ -21,7 +24,6 @@ self.addEventListener('fetch', event => {
   const request = event.request;
   if (request.method !== 'GET' || new URL(request.url).origin !== self.location.origin) return;
 
-  // HTML navigations: network-first so releases arrive quickly, cached shell when offline.
   if (request.mode === 'navigate') {
     event.respondWith(
       fetch(request).then(response => {
@@ -33,7 +35,6 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  // Static assets/data: cache-first with background refresh.
   event.respondWith(
     caches.match(request).then(cached => {
       const network = fetch(request).then(response => {

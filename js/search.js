@@ -1,5 +1,6 @@
-/* زاد المسلم — local Arabic search */
+/* زاد المسلم — unified Arabic search */
 import { searchContent } from './content.js';
+import { searchQuran } from './features/quran-data.js';
 
 export function normalizeArabic(value) {
   return String(value ?? '')
@@ -17,6 +18,12 @@ export function normalizeArabic(value) {
 export async function searchArabic(query, options = {}) {
   const normalized = normalizeArabic(query);
   if (!normalized) return [];
-  const results = await searchContent(normalized, options);
-  return results.filter(item => normalizeArabic(`${item.title} ${item.text} ${item.source} ${item.reference}`).includes(normalized));
+  const limit = Math.max(1, Math.min(Number(options.limit) || 50, 200));
+  const types = options.types || ['quran', 'dhikr', 'hadith'];
+  const results = [];
+  if (types.includes('quran')) results.push(...await searchQuran(normalized, limit));
+  if (results.length < limit && types.some(type => type === 'dhikr' || type === 'hadith')) {
+    results.push(...await searchContent(normalized, { ...options, types: types.filter(type => type !== 'quran'), limit: limit - results.length }));
+  }
+  return results.slice(0, limit).filter(item => normalizeArabic(`${item.title} ${item.text} ${item.source} ${item.reference}`).includes(normalized));
 }

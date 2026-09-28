@@ -1,0 +1,27 @@
+{
+  "product": "مِشكاة | MISHKAT",
+  "release_goal": "production-grade Islamic knowledge platform",
+  "quality_gates": [
+    "verified Quran source and complete 114-surah catalog",
+    "hadith books with source attribution and identifiers",
+    "prophetic guidance, adhkar and duas with traceable sources",
+    "independent scholar and lecture catalogs linking to original publishers",
+    "Quran recitations with source attribution",
+    "tafsir and books catalog with source attribution",
+    "unified Arabic search across indexed content",
+    "prayer times, qibla and prayer settings",
+    "favorites, bookmarks, progress and local persistence",
+    "offline-first PWA with safe cache versioning",
+    "RTL, accessibility, dark mode and responsive UI",
+    "security checks and no embedded secrets",
+    "unit, integration, content-schema and smoke tests",
+    "performance and error-state checks",
+    "Android release validation before store publication"
+  ],
+  "content_policy": {
+    "no_fabricated_religious_text": true,
+    "require_source_attribution": true,
+    "link_original_video_sources": true,
+    "do_not_republish_copyrighted_media_without_permission": true
+  }
+}

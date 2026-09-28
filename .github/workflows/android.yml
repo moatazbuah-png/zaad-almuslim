@@ -36,7 +36,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p data/quran data/hadith
-          curl -fsSL --retry 3 --retry-all-errors -o data/quran.json https://cdn.jsdelivr.net/npm/quran-json@3.1.2/dist/quran.json
+          curl -fsSL --retry 3 --retry-all-errors -o data/quran.json https://raw.githubusercontent.com/risan/quran-json/main/dist/quran.json
           for book in bukhari muslim abudawud tirmidhi nasai ibnmajah malik ahmad darimi; do
             curl -fsSL --retry 3 --retry-all-errors -o "data/hadith/${book}.json" "https://raw.githubusercontent.com/AhmedBaset/hadith-json/v1.2.0/db/by_book/the_9_books/${book}.json"
           done
@@ -46,7 +46,9 @@ jobs:
           q=json.loads(Path('data/quran.json').read_text(encoding='utf-8'))
           chapters=q.get('chapters') or q.get('surahs') or []
           assert len(chapters)==114, f'Quran chapters={len(chapters)}'
-          verses=sum(len(c.get('verses') or c.get('ayahs') or []) for c in chapters)
+          nested=sum(len(c.get('verses') or c.get('ayahs') or []) for c in chapters)
+          top_level=len(q.get('verses') or q.get('ayahs') or [])
+          verses=nested or top_level
           assert verses==6236, f'Quran verses={verses}'
           for p in Path('data/hadith').glob('*.json'):
             raw=json.loads(p.read_text(encoding='utf-8'))

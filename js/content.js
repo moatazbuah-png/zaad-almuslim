@@ -6,6 +6,18 @@ const EMPTY_CONTENT = Object.freeze({ version: 'unavailable', schema_version: '1
 
 function normalizeList(value) { return Array.isArray(value) ? value : []; }
 
+function normalizeArabic(value) {
+  return String(value ?? '')
+    .normalize('NFKD')
+    .replace(/[\u064B-\u065F\u0670]/g, '')
+    .replace(/[أإآ]/g, 'ا')
+    .replace(/ى/g, 'ي')
+    .replace(/ؤ/g, 'و')
+    .replace(/ئ/g, 'ي')
+    .replace(/ة/g, 'ه')
+    .toLocaleLowerCase('ar');
+}
+
 function normalizeItem(item, type) {
   if (!item || typeof item !== 'object') return null;
   const id = String(item.id ?? '').trim();
@@ -39,7 +51,7 @@ export async function getContent() {
 }
 
 export async function searchContent(query, options = {}) {
-  const term = String(query ?? '').trim().toLocaleLowerCase('ar');
+  const term = normalizeArabic(query).trim();
   if (!term) return [];
   const content = await getContent();
   const types = Array.isArray(options.types) && options.types.length ? options.types : ['quran', 'dhikr', 'hadith'];
@@ -48,7 +60,7 @@ export async function searchContent(query, options = {}) {
   for (const type of types) {
     const list = type === 'quran' ? content.surahs : type === 'dhikr' ? content.athkar : content.hadith;
     for (const item of list) {
-      const haystack = `${item.title} ${item.text} ${item.source} ${item.reference}`.toLocaleLowerCase('ar');
+      const haystack = normalizeArabic(`${item.title} ${item.text} ${item.source} ${item.reference}`);
       if (haystack.includes(term)) results.push(item);
       if (results.length >= limit) return results;
     }

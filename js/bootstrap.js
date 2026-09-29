@@ -100,7 +100,7 @@ export async function bootstrapZaad() {
   const state = getState();
   document.documentElement.dataset.zaadReady = 'true';
   window.Zaad = Object.freeze({
-    version: '2.1.0',
+    version: '2.2.0',
     contentStats: contentStats(content),
     getState,
     subscribe

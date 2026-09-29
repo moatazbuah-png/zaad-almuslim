@@ -6,6 +6,10 @@ const INITIAL_STATE = Object.freeze({
   lastRead: null,
   bookmarks: [],
   dhikrProgress: {},
+  tasbeehCount: 0,
+  tasbeehTotal: 0,
+  tasbeehPhrase: '',
+  prayer: {},
   settings: {
     notifications: false,
     location: false,
@@ -23,7 +27,11 @@ function sanitizeState(value) {
     ...clone(INITIAL_STATE),
     ...source,
     bookmarks: Array.isArray(source.bookmarks) ? source.bookmarks : [],
+    tasbeehCount: Number.isFinite(Number(source.tasbeehCount)) ? Math.max(0, Number(source.tasbeehCount)) : 0,
+    tasbeehTotal: Number.isFinite(Number(source.tasbeehTotal)) ? Math.max(0, Number(source.tasbeehTotal)) : 0,
+    tasbeehPhrase: typeof source.tasbeehPhrase === 'string' ? source.tasbeehPhrase : '',
     dhikrProgress: source.dhikrProgress && typeof source.dhikrProgress === 'object' ? source.dhikrProgress : {},
+    prayer: source.prayer && typeof source.prayer === 'object' ? source.prayer : {},
     settings: { ...INITIAL_STATE.settings, ...(source.settings || {}) }
   };
 }

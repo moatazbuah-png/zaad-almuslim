@@ -36,9 +36,9 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p data/quran data/hadith
-          curl -fsSL --retry 3 --retry-all-errors -o data/quran.json https://raw.githubusercontent.com/risan/quran-json/main/dist/quran.json
+          curl -fsSL --retry 3 --retry-all-errors -o data/quran.json https://cdn.jsdelivr.net/npm/quran-json@3.1.2/dist/quran.json
           for book in bukhari muslim abudawud tirmidhi nasai ibnmajah malik ahmad darimi; do
-            curl -fsSL --retry 3 --retry-all-errors -o "data/hadith/${book}.json" "https://raw.githubusercontent.com/AhmedBaset/hadith-json/v1.2.0/db/by_book/the_9_books/${book}.json"
+            curl -fsSL --retry 3 --retry-all-errors -o "data/hadith/${book}.json" "https://raw.githubusercontent.com/A7med3bdulBaset/hadith-json/v1.2.0/db/by_book/the_9_books/${book}.json"
           done
           python - <<'PY'
           import json
@@ -76,8 +76,13 @@ jobs:
           test -f android/app/build.gradle
           test -f android/app/src/main/AndroidManifest.xml
           test -f android/app/src/main/java/com/zaadalmuslim/MainActivity.java
+          test -f android/app/src/main/res/values/styles.xml
+          test -s android/app/src/main/assets/index.html
           test -s android/app/src/main/assets/data/quran.json
           test -s android/app/src/main/assets/data/hadith/bukhari.json
+          grep -q "com.android.application" android/app/build.gradle
+          grep -q "compileSdk 35" android/app/build.gradle
+          grep -q "applicationId 'com.zaadalmuslim'" android/app/build.gradle
 
       - name: Build APK
         run: gradle -p android :app:assembleDebug --no-daemon --stacktrace
